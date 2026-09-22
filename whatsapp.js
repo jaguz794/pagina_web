@@ -1,19 +1,19 @@
 // Agrega los números confirmados en formato internacional, solo dígitos.
 // Ejemplo colombiano: "573001234567". Una sede puede compartir número con otra.
 const whatsappPorSede = {
-  "jardin-neiva": "",
-  "rioja-neiva": "",
-  "canaima-neiva": "",
-  "chapinero-neiva": "",
-  "centro-neiva": "",
-  "cr5-neiva": "",
-  "granjas-neiva": "",
-  "cana-brava-neiva": "",
-  "unico-neiva": "",
-  "jardin-ibague": "",
-  "salado-ibague": "",
-  "centro-ibague": "",
-  "tropical-ibague": ""
+  "jardin-neiva": "573183958824",
+  "rioja-neiva": "573176687477",
+  "canaima-neiva": "573155829882",
+  "chapinero-neiva": "573213706208",
+  "centro-neiva": "573166912384",
+  "cr5-neiva": "573187619175",
+  "granjas-neiva": "573183645539",
+  "cana-brava-neiva": "573169999918",
+  "unico-neiva": "573169999917",
+  "jardin-ibague": "573007542217",
+  "salado-ibague": "573165269119",
+  "centro-ibague": "573176437930",
+  "tropical-ibague": "573007515362"
 };
 
 document.querySelectorAll(".store[data-sede]").forEach((sede) => {

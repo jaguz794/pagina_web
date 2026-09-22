@@ -4,7 +4,7 @@ Primera versión informativa de la web de Supermercados Popular. Incluye las 13 
 
 ## WhatsApp
 
-Los números no se han proporcionado todavía. En `whatsapp.js`, reemplaza la cadena vacía de cada sede por el número internacional, sin `+`, espacios ni guiones. Por ejemplo: `573001234567`. Cuando el número es válido, el enlace de esa sede aparece automáticamente. El mensaje identifica la sede y la ciudad. No se publica un enlace de destino inventado.
+Los 13 números proporcionados están en `whatsapp.js`, en formato internacional sin `+`, espacios ni guiones. Para cambiar un número, modifica el valor de la sede correspondiente. El enlace usa `wa.me` e incluye un mensaje que identifica la sede y la ciudad.
 
 ## Vista local
 
