@@ -29,8 +29,8 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .site-header nav a:hover { background: var(--soft); color: var(--green); }
 .desktop-nav { margin-left: auto; }
 .site-header nav a[aria-current="page"] { color: var(--green); background: var(--soft); }
-.portal-button { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex: none; padding: 10px 16px; border-radius: 9px; background: var(--dark); color: var(--white); font-size: 13px; font-weight: 800; text-decoration: none; white-space: nowrap; }
-.portal-button:hover { background: var(--green); }
+.portal-button { min-height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; flex: none; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); color: var(--dark); font-size: 11px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.portal-button:hover { border-color: var(--green); background: var(--soft); color: var(--green); }
 .mobile-menu { display: none; position: relative; }
 
 .intro { position: relative; overflow: hidden; color: var(--white); background: var(--dark); }
@@ -157,7 +157,7 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
   .brand { width: 120px; }
   .site-header nav { gap: 0; }
   .site-header nav a { padding-inline: 10px; font-size: 13px; }
-  .portal-button { padding-inline: 9px; font-size: 11px; }
+  .portal-button { padding-inline: 8px; font-size: 10.5px; }
   .portal-button span { display: none; }
   .mobile-menu summary { gap: 5px; padding-inline: 9px; font-size: 12px; }
   .intro-inner { display: block; min-height: 0; padding-block: 56px 62px; }
@@ -191,7 +191,7 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
   .store-action a { padding-right: 8px; font-size: 11px; }
   .brand { width: 106px; }
   .header-inner { gap: 5px; }
-  .portal-button { min-height: 40px; padding: 8px; font-size: 11px; }
+  .portal-button { min-height: 34px; padding: 6px; font-size: 10.5px; }
   .mobile-menu summary { min-height: 40px; padding: 8px; font-size: 11px; }
   .empty-card { display: block; }
   .empty-icon { margin-bottom: 18px; }
