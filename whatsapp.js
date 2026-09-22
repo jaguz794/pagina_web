@@ -16,14 +16,14 @@ const whatsappPorSede = {
   "tropical-ibague": "573007515362"
 };
 
-document.querySelectorAll(".store[data-sede]").forEach((sede) => {
+document.querySelectorAll("[data-sede]").forEach((sede) => {
   const numero = whatsappPorSede[sede.dataset.sede];
   if (!/^\d{8,15}$/.test(numero || "")) return;
 
-  const nombre = sede.querySelector("h4").textContent.trim();
-  const ciudad = sede.closest(".city").querySelector("h3").textContent.trim();
+  const nombre = sede.dataset.nombre || sede.querySelector("h3, h4, strong").textContent.trim();
+  const ciudad = sede.dataset.ciudad || sede.closest(".city").querySelector("h2, h3").textContent.trim();
   const mensaje = encodeURIComponent(`Hola, quiero comunicarme con la sede ${nombre} de ${ciudad} de Supermercados Popular.`);
-  const enlace = sede.querySelector(".store-action a");
+  const enlace = sede.querySelector(".wa-link, .store-action a");
   enlace.href = `https://wa.me/${numero}?text=${mensaje}`;
   enlace.target = "_blank";
   enlace.rel = "noopener noreferrer";

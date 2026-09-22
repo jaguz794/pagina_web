@@ -2,6 +2,15 @@
 
 Versión informativa de la web de Supermercados Popular. Incluye las 13 sedes de Neiva e Ibagué. Es un sitio estático sin dependencias ni compilación, preparado para GitHub Pages. El diseño se adapta a móvil, tableta y escritorio.
 
+## Páginas
+
+- `index.html`: inicio, acceso a las secciones y comentarios de clientes.
+- `sedes.html`: direcciones y WhatsApp de las 13 tiendas.
+- `ofertas.html`: espacio de ofertas; se mantiene sin productos mientras la empresa no facilite promociones vigentes.
+- `contactenos.html`: contactos de WhatsApp organizados por ciudad.
+
+El botón **Portal interno** abre `http://192.168.10.7/`. Esta dirección privada solo funciona desde la red interna o una VPN con acceso a ella.
+
 ## WhatsApp
 
 Los 13 números proporcionados están en `whatsapp.js`, en formato internacional sin `+`, espacios ni guiones. Para cambiar un número, modifica el valor de la sede correspondiente. El enlace usa `wa.me` e incluye un mensaje que identifica la sede y la ciudad.
@@ -12,7 +21,7 @@ El ícono de cada botón procede del [paquete oficial de marca de WhatsApp de Me
 
 El logotipo suministrado se sirve como WebP optimizado para reducir la descarga; el original permanece en la ubicación de origen del usuario. La página usa HTML semántico, título y descripción para buscadores. Antes de publicarla con el dominio propio habrá que comprobar HTTPS, tiempos de carga reales y la indexación en Google Search Console.
 
-Las reseñas o testimonios se incorporarán cuando la empresa facilite referencias reales y autorización para publicarlas.
+La sección de comentarios usa cuatro capturas de Facebook facilitadas por la empresa. Se transcribieron los textos originales, sin añadir calificaciones ni fechas.
 
 ## Vista local
 
