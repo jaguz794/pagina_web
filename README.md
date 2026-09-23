@@ -5,6 +5,7 @@ Versión informativa de la web de Supermercados Popular. Incluye las 13 sedes de
 ## Páginas
 
 - `index.html`: inicio, acceso a las secciones y comentarios de clientes.
+- `nosotros.html`: historia de Pitalito a Neiva e Ibagué y enfoque en carnes y criaderos propios.
 - `sedes.html`: direcciones y WhatsApp de las 13 tiendas.
 - `ofertas.html`: espacio de ofertas; se mantiene sin productos mientras la empresa no facilite promociones vigentes.
 - `contactenos.html`: contactos de WhatsApp organizados por ciudad.
