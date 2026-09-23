@@ -1,0 +1,67 @@
+media:
+  input: assets/ofertas
+  output: /assets/ofertas
+  rename: safe
+  extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: ofertas
+    label: Ofertas de la semana
+    type: file
+    path: data/ofertas.json
+    format: json
+    list: true
+    fields:
+      - name: titulo
+        label: Producto
+        type: string
+        required: true
+      - name: descripcion
+        label: Descripción breve
+        type: text
+      - name: imagen
+        label: Foto del producto
+        type: image
+      - name: precio
+        label: Precio de oferta en pesos colombianos
+        type: number
+        required: true
+        description: Escribe solo números, sin puntos ni signo de pesos.
+      - name: precio_anterior
+        label: Precio anterior (opcional)
+        type: number
+        description: Déjalo vacío si no deseas mostrar una comparación.
+      - name: unidad
+        label: Unidad o presentación
+        type: string
+        required: true
+        description: "Ejemplo: por kg, 500 g o unidad."
+      - name: ciudad
+        label: Disponible en
+        type: select
+        required: true
+        options:
+          values:
+            - name: todas
+              label: Neiva e Ibagué
+            - name: neiva
+              label: Solo Neiva
+            - name: ibague
+              label: Solo Ibagué
+      - name: inicio
+        label: Fecha de inicio
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: fin
+        label: Último día de vigencia
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: publicada
+        label: Publicar oferta
+        type: boolean
+        default: false
+        description: Activa esta opción cuando todos los datos estén revisados.

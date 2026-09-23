@@ -7,7 +7,7 @@ Versión informativa de la web de Supermercados Popular. Incluye las 13 sedes de
 - `index.html`: inicio, acceso a las secciones y comentarios de clientes.
 - `nosotros.html`: historia de Pitalito a Neiva e Ibagué y enfoque en carnes y criaderos propios.
 - `sedes.html`: direcciones y WhatsApp de las 13 tiendas.
-- `ofertas.html`: espacio de ofertas; se mantiene sin productos mientras la empresa no facilite promociones vigentes.
+- `ofertas.html`: muestra automáticamente las promociones publicadas y vigentes desde `data/ofertas.json`.
 - `contactenos.html`: contactos de WhatsApp organizados por ciudad.
 
 El botón **Portal interno** abre `http://192.168.10.7/`. Esta dirección privada solo funciona desde la red interna o una VPN con acceso a ella.
@@ -27,6 +27,21 @@ La sección de comentarios usa cuatro capturas de Facebook facilitadas por la em
 ## Vista local
 
 Abre `index.html` en un navegador o ejecuta `python -m http.server 8000` desde esta carpeta y visita `http://localhost:8000`.
+
+La sección de ofertas carga un archivo JSON. Para revisar cambios en las ofertas localmente, usa el servidor `python -m http.server 8000`; abrir `ofertas.html` como archivo `file://` solo muestra el estado sin ofertas.
+
+## Administración visual de ofertas
+
+La configuración `.pages.yml` prepara [Pages CMS](https://pagescms.org/) para editar ofertas desde un formulario conectado al repositorio de GitHub. El código y las imágenes quedan en una cuenta de GitHub controlada por la empresa. El panel de edición es un servicio externo; puede instalarse por cuenta propia más adelante si se desea gestionar también esa infraestructura.
+
+Una vez publicado este repositorio en GitHub:
+
+1. Entra a [app.pagescms.org](https://app.pagescms.org/) con la cuenta empresarial de GitHub y autoriza la aplicación solo para este repositorio.
+2. Abre el repositorio y elige **Ofertas de la semana**. Cada oferta incluye producto, descripción, foto, precio, unidad, ciudad, fechas y la casilla **Publicar oferta**.
+3. Para publicar, agrega una oferta, verifica el precio y la vigencia, activa **Publicar oferta** y guarda. Pages CMS registra el cambio en GitHub; GitHub Pages actualizará el sitio publicado.
+4. Al pasar el último día de vigencia, la oferta deja de mostrarse automáticamente. También puedes desactivar **Publicar oferta** o eliminarla desde el panel.
+
+No se deben subir ofertas internas o precios no aprobados. Concede acceso de edición solo a las personas autorizadas y activa la verificación en dos pasos en sus cuentas de GitHub. Si aún no hay ofertas, `data/ofertas.json` permanece vacío y la página muestra un mensaje de espera.
 
 ## Publicación en GitHub Pages
 

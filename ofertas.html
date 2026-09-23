@@ -9,6 +9,7 @@
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
     <script src="whatsapp.js" defer></script>
+    <script src="ofertas.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -28,16 +29,19 @@
     <main id="contenido">
 <section class="page-hero">
   <div class="container"><p class="eyebrow">Supermercados Popular</p><h1>Ofertas</h1>
-    <p>Aquí publicaremos las ofertas vigentes de nuestras tiendas.</p>
+    <p>Descubre las promociones vigentes y encuentra tu tienda Popular más cercana.</p>
   </div>
 </section>
-<section class="empty-page container" aria-labelledby="empty-title">
-  <div class="empty-card"><span class="empty-icon" aria-hidden="true">%</span>
-    <div><h2 id="empty-title">Próximamente, nuevas ofertas</h2>
-      <p>Aún no hay promociones publicadas en esta página. Vuelve pronto para consultar las novedades.</p>
+<section class="offers-section container" aria-labelledby="offers-title">
+  <div class="offers-heading"><div><p class="eyebrow">Compra con nosotros</p><h2 id="offers-title">Ofertas de la semana</h2></div><p>Las promociones pueden tener fechas y tiendas participantes específicas. Revisa cada oferta antes de visitarnos.</p></div>
+  <div id="offers-grid" class="offers-grid" hidden></div>
+  <div id="offers-empty" class="empty-card" hidden><span class="empty-icon" aria-hidden="true">%</span>
+    <div><h3>Próximamente, nuevas ofertas</h3>
+      <p>Hoy no hay promociones vigentes publicadas. Vuelve pronto para conocer nuestras novedades.</p>
       <a class="secondary-link" href="sedes.html">Ver nuestras sedes <span aria-hidden="true">↗</span></a>
     </div>
   </div>
+  <p id="offers-error" class="offers-error" role="status" hidden>Ahora no podemos mostrar las ofertas. Inténtalo de nuevo más tarde.</p>
 </section>
     </main>
     <footer class="site-footer">
