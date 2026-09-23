@@ -91,7 +91,7 @@
     return card;
   }
 
-  fetch("data/ofertas.json", { cache: "no-cache" })
+  fetch(`data/ofertas.json?v=${Date.now()}`, { cache: "no-store" })
     .then((response) => {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return response.json();
