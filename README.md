@@ -1,6 +1,6 @@
 # Supermercados Popular
 
-Versión informativa de la web de Supermercados Popular. Incluye las 13 sedes de Neiva e Ibagué. Es un sitio estático sin dependencias ni compilación, preparado para GitHub Pages. El diseño se adapta a móvil, tableta y escritorio.
+Versión informativa de la web de Supermercados Popular. Incluye las 13 sedes de Neiva e Ibagué. Es un sitio estático sin compilación, publicado en [GitHub Pages](https://jaguz794.github.io/pagina_web/). El diseño se adapta a móvil, tableta y escritorio.
 
 ## Páginas
 
@@ -34,7 +34,7 @@ La sección de ofertas carga un archivo JSON. Para revisar cambios en las oferta
 
 La configuración `.pages.yml` prepara [Pages CMS](https://pagescms.org/) para editar ofertas desde un formulario conectado al repositorio de GitHub. El código y las imágenes quedan en una cuenta de GitHub controlada por la empresa. El panel de edición es un servicio externo; puede instalarse por cuenta propia más adelante si se desea gestionar también esa infraestructura.
 
-Una vez publicado este repositorio en GitHub:
+Para conectar el panel al [repositorio de la empresa](https://github.com/jaguz794/pagina_web):
 
 1. Entra a [app.pagescms.org](https://app.pagescms.org/) con la cuenta empresarial de GitHub y autoriza la aplicación solo para este repositorio.
 2. Abre el repositorio y elige **Ofertas de la semana**. Cada oferta incluye producto, descripción, foto, precio, unidad, ciudad, fechas y la casilla **Publicar oferta**.
@@ -45,10 +45,8 @@ No se deben subir ofertas internas o precios no aprobados. Concede acceso de edi
 
 ## Publicación en GitHub Pages
 
-1. Crea un repositorio bajo una cuenta de GitHub controlada por la empresa.
-2. Sube estos archivos a la rama principal.
-3. En **Settings → Pages**, selecciona **Deploy from a branch**, rama `main`, carpeta `/ (root)`.
-4. Comprueba la dirección temporal de GitHub Pages y los enlaces de las 13 sedes.
-5. Cuando el dominio esté bajo tu control, configura `www.supermercadopopular.com` como dominio personalizado en Pages y verifica el dominio en GitHub antes de editar DNS. Luego configura los registros DNS indicados por GitHub en el proveedor del dominio y activa **Enforce HTTPS**.
+El repositorio está conectado a `https://github.com/jaguz794/pagina_web.git`. GitHub Pages publica automáticamente la rama `main`, carpeta `/ (root)`, en `https://jaguz794.github.io/pagina_web/`, con HTTPS forzado. Los cambios guardados en Pages CMS se publicarán mediante el mismo proceso.
+
+Cuando el dominio esté bajo control de la empresa, configura `www.supermercadopopular.com` como dominio personalizado en Pages y verifica el dominio en GitHub antes de editar DNS. Luego configura los registros DNS indicados por GitHub en el proveedor del dominio.
 
 Conserva los registros MX y TXT del correo al cambiar los servidores DNS. El dominio y su transferencia se administran fuera de este repositorio.
