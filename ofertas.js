@@ -4,6 +4,7 @@
 
   const empty = document.getElementById("offers-empty");
   const error = document.getElementById("offers-error");
+  const note = document.getElementById("offers-note");
   const currency = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
@@ -37,15 +38,27 @@
     return node;
   }
 
+  function imagePathFor(offer) {
+    const path = typeof offer.imagen === "string" ? offer.imagen.replace(/^\//, "") : "";
+    return /^assets\/ofertas\/[A-Za-z0-9À-ÿ _().-]+\.(?:jpe?g|png|webp)$/i.test(path) && !path.includes("..") ? path : "";
+  }
+
   function renderOffer(offer) {
-    const card = element("article", "offer-card");
-    const imagePath = typeof offer.imagen === "string" ? offer.imagen.replace(/^\//, "") : "";
-    if (/^assets\/ofertas\/[\wÀ-ÿ ()-.]+\.(?:jpe?g|png|webp)$/i.test(imagePath) && !imagePath.includes("..")) {
-      const picture = element("div", "offer-image");
+    const flyer = offer.tipo === "volante" || offer.tipo === "portada";
+    const card = element("article", `offer-card${flyer ? " offer-flyer" : ""}${offer.tipo === "portada" ? " offer-cover" : ""}`);
+    const imagePath = imagePathFor(offer);
+    if (imagePath) {
+      const picture = element(flyer ? "a" : "div", "offer-image");
+      if (flyer) {
+        picture.href = imagePath;
+        picture.target = "_blank";
+        picture.rel = "noopener noreferrer";
+        picture.setAttribute("aria-label", `Abrir volante completo: ${offer.titulo}`);
+      }
       const image = element("img");
       image.src = imagePath;
-      image.alt = `Oferta de ${offer.titulo}`;
-      image.loading = "lazy";
+      image.alt = flyer ? `Volante de ${offer.titulo}` : `Oferta de ${offer.titulo}`;
+      image.loading = offer.tipo === "portada" ? "eager" : "lazy";
       image.decoding = "async";
       picture.append(image);
       card.append(picture);
@@ -57,16 +70,22 @@
     body.append(element("span", "offer-city", cityLabels[offer.ciudad]));
     body.append(element("h3", "", offer.titulo));
     if (offer.descripcion) body.append(element("p", "offer-description", offer.descripcion));
-    const price = element("div", "offer-price");
-    price.append(element("strong", "", currency.format(offer.precio)));
-    price.append(element("span", "", offer.unidad));
-    body.append(price);
-    if (Number.isFinite(offer.precio_anterior) && offer.precio_anterior > offer.precio) {
-      body.append(element("p", "offer-old-price", `Antes ${currency.format(offer.precio_anterior)}`));
+    if (!flyer) {
+      const price = element("div", "offer-price");
+      price.append(element("strong", "", currency.format(offer.precio)));
+      price.append(element("span", "", offer.unidad));
+      body.append(price);
+      if (Number.isFinite(offer.precio_anterior) && offer.precio_anterior > offer.precio) {
+        body.append(element("p", "offer-old-price", `Antes ${currency.format(offer.precio_anterior)}`));
+      }
     }
-    body.append(element("p", "offer-validity", `Válida del ${formatDate(offer.inicio)} al ${formatDate(offer.fin)}.`));
-    const link = element("a", "secondary-link", "Encuentra tu sede ↗");
-    link.href = "sedes.html";
+    body.append(element("p", "offer-validity", `Válida del ${formatDate(offer.inicio)} al ${formatDate(offer.fin)}${flyer ? ", o hasta agotar existencias" : ""}.`));
+    const link = element("a", "secondary-link", flyer ? "Abrir volante completo ↗" : "Encuentra tu sede ↗");
+    link.href = flyer ? imagePath : "sedes.html";
+    if (flyer) {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    }
     body.append(link);
     card.append(body);
     return card;
@@ -82,8 +101,10 @@
       const active = offers.filter((offer) =>
         offer && offer.publicada === true &&
         typeof offer.titulo === "string" && offer.titulo.trim() &&
-        typeof offer.unidad === "string" && offer.unidad.trim() &&
-        Number.isFinite(offer.precio) && offer.precio >= 0 &&
+        ((["volante", "portada"].includes(offer.tipo) && imagePathFor(offer)) ||
+          ((offer.tipo === "producto" || !offer.tipo) &&
+            typeof offer.unidad === "string" && offer.unidad.trim() &&
+            Number.isFinite(offer.precio) && offer.precio >= 0)) &&
         Object.hasOwn(cityLabels, offer.ciudad) &&
         validDate(offer.inicio) && validDate(offer.fin) &&
         offer.inicio <= today && offer.fin >= today && offer.inicio <= offer.fin
@@ -94,6 +115,7 @@
       }
       active.forEach((offer) => grid.append(renderOffer(offer)));
       grid.hidden = false;
+      note.hidden = !active.some((offer) => offer.tipo === "volante" || offer.tipo === "portada");
     })
     .catch(() => {
       if (location.protocol === "file:") empty.hidden = false;

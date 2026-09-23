@@ -37,11 +37,13 @@ La configuración `.pages.yml` prepara [Pages CMS](https://pagescms.org/) para e
 Para conectar el panel al [repositorio de la empresa](https://github.com/jaguz794/pagina_web):
 
 1. Entra a [app.pagescms.org](https://app.pagescms.org/) con la cuenta empresarial de GitHub y autoriza la aplicación solo para este repositorio.
-2. Abre el repositorio y elige **Ofertas de la semana**. Cada oferta incluye producto, descripción, foto, precio, unidad, ciudad, fechas y la casilla **Publicar oferta**.
-3. Para publicar, agrega una oferta, verifica el precio y la vigencia, activa **Publicar oferta** y guarda. Pages CMS registra el cambio en GitHub; GitHub Pages actualizará el sitio publicado.
+2. Abre el repositorio y elige **Ofertas de la semana**. Selecciona **Producto individual**, **Volante de ofertas** o **Portada de campaña**. Los precios y la unidad se escriben solo para un producto individual; para un volante completo basta con título, imagen, ciudad, fechas y la casilla **Publicar oferta**.
+3. Para publicar, agrega una oferta, verifica la imagen o el precio y la vigencia, activa **Publicar oferta** y guarda. Pages CMS registra el cambio en GitHub; GitHub Pages actualizará el sitio publicado.
 4. Al pasar el último día de vigencia, la oferta deja de mostrarse automáticamente. También puedes desactivar **Publicar oferta** o eliminarla desde el panel.
 
-No se deben subir ofertas internas o precios no aprobados. Concede acceso de edición solo a las personas autorizadas y activa la verificación en dos pasos en sus cuentas de GitHub. Si aún no hay ofertas, `data/ofertas.json` permanece vacío y la página muestra un mensaje de espera.
+No se deben subir ofertas internas o precios no aprobados. Concede acceso de edición solo a las personas autorizadas y activa la verificación en dos pasos en sus cuentas de GitHub. Si no hay ofertas vigentes, la página muestra un mensaje de espera.
+
+Los 13 volantes de aniversario de Ibagué recibidos de la empresa se publicaron para el **23 y 24 de septiembre de 2026**. Se conservaron completos como imágenes WebP optimizadas en `assets/ofertas/`, para mantener los precios, restricciones y avisos tal como aparecen en los originales. Cada volante se puede abrir a tamaño completo desde la página. Al terminar el 24 de septiembre, dejan de mostrarse automáticamente según la hora de Colombia.
 
 ## Publicación en GitHub Pages
 

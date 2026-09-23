@@ -12,30 +12,45 @@ content:
     format: json
     list: true
     fields:
+      - name: tipo
+        label: Formato
+        type: select
+        required: true
+        default: producto
+        description: Usa Volante para una imagen con varios productos.
+        options:
+          values:
+            - name: producto
+              label: Producto individual
+            - name: volante
+              label: Volante de ofertas
+            - name: portada
+              label: Portada de campaña
       - name: titulo
-        label: Producto
+        label: Título del producto o volante
         type: string
         required: true
       - name: descripcion
         label: Descripción breve
         type: text
       - name: imagen
-        label: Foto del producto
+        label: Foto del producto o volante
         type: image
+        description: Obligatoria para volantes y portadas. Sube imágenes WebP para que carguen rápido.
       - name: precio
-        label: Precio de oferta en pesos colombianos
+        label: Precio de oferta (solo producto individual)
         type: number
-        required: true
-        description: Escribe solo números, sin puntos ni signo de pesos.
+        description: Para productos individuales escribe solo números, sin puntos ni signo de pesos. Déjalo vacío en volantes.
+        options:
+          min: 0
       - name: precio_anterior
         label: Precio anterior (opcional)
         type: number
         description: Déjalo vacío si no deseas mostrar una comparación.
       - name: unidad
-        label: Unidad o presentación
+        label: Unidad o presentación (solo producto individual)
         type: string
-        required: true
-        description: "Ejemplo: por kg, 500 g o unidad."
+        description: "Ejemplo: por kg, 500 g o unidad. Déjalo vacío en volantes."
       - name: ciudad
         label: Disponible en
         type: select

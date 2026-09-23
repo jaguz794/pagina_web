@@ -1,1 +1,120 @@
-[]
+[
+  {
+    "tipo": "portada",
+    "titulo": "Aniversario Popular en Ibagué",
+    "descripcion": "Descubre las ofertas de aniversario para todas nuestras sedes de Ibagué.",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-portada.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Carnes: pollo y res",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-pollo-res.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Carnes: cerdo y mariscos",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-cerdo-mariscos.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Frutas y verduras",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-fruver.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Desayunos y lácteos",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-desayuno.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Bebidas",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-bebidas.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Arroz, aceites y pasta",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-arroz-aceites.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Granos y despensa",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-despensa.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Enlatados y conservas",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-enlatados.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Café y leche",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-leche-cafe.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Galletas y pasabocas",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-galletas.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Aseo personal",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-aseo.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  },
+  {
+    "tipo": "volante",
+    "titulo": "Licores para mayores de edad",
+    "imagen": "/assets/ofertas/ibague-2026-09-23-licores.webp",
+    "ciudad": "ibague",
+    "inicio": "2026-09-23",
+    "fin": "2026-09-24",
+    "publicada": true
+  }
+]
