@@ -6,7 +6,7 @@ Versión informativa de la web de Supermercados Popular. Incluye las 13 sedes de
 
 - `index.html`: inicio, acceso a las secciones y comentarios de clientes.
 - `nosotros.html`: historia de Pitalito a Neiva e Ibagué y enfoque en carnes y criaderos propios.
-- `sedes.html`: direcciones y WhatsApp de las 13 tiendas.
+- `sedes.html`: fotos, direcciones y WhatsApp de las 13 tiendas. Toda la tarjeta de cada sede abre su conversación.
 - `ofertas.html`: muestra automáticamente las promociones publicadas y vigentes desde `data/ofertas.json`.
 - `contactenos.html`: contactos de WhatsApp organizados por ciudad.
 
@@ -21,6 +21,8 @@ El ícono de cada botón procede del [paquete oficial de marca de WhatsApp de Me
 ## Contenido y rendimiento
 
 El logotipo suministrado se sirve como WebP optimizado para reducir la descarga; el original permanece en la ubicación de origen del usuario. La página usa HTML semántico, título y descripción para buscadores. Antes de publicarla con el dominio propio habrá que comprobar HTTPS, tiempos de carga reales y la indexación en Google Search Console.
+
+Las fotos de las sedes se retocaron para retirar personas y vehículos. Los archivos publicados están en `assets/sedes/`, tienen resolución de 960 × 600 píxeles y formato WebP (13 imágenes, aproximadamente 1,3 MB en total). Se cargan de forma diferida para que la página inicial no descargue todas a la vez. El favicon usa la «P» del logotipo.
 
 La sección de comentarios usa cuatro capturas de Facebook facilitadas por la empresa. Se transcribieron los textos originales, sin añadir calificaciones ni fechas.
 

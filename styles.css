@@ -69,16 +69,17 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .city-heading h3 { margin: 0; font-size: 29px; letter-spacing: -.05em; }
 .city-heading span { color: var(--green); font-size: 13px; font-weight: 700; }
 .store-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.store { position: relative; min-width: 0; min-height: 198px; display: flex; flex-direction: column; align-items: flex-start; padding: 23px; border: 1px solid var(--line); border-radius: 16px; background: var(--soft); transition: border-color .2s, box-shadow .2s, transform .2s; }
-.store:hover { border-color: var(--green); box-shadow: 0 12px 28px rgba(23, 57, 42, .08); transform: translateY(-3px); }
+.store { min-width: 0; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--soft); text-decoration: none; transition: border-color .2s, box-shadow .2s, transform .2s; }
+.store:hover, .store:focus-visible { border-color: var(--green); box-shadow: 0 12px 28px rgba(23, 57, 42, .12); transform: translateY(-3px); }
+.store:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.store-photo { width: 100%; height: auto; aspect-ratio: 8 / 5; display: block; object-fit: cover; background: #e5eae2; }
+.store-content { flex: 1; display: flex; flex-direction: column; align-items: flex-start; padding: 21px 23px 23px; }
 .store-number { display: inline-flex; align-items: center; gap: 7px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .14em; }
 .store-number::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
-.store h4 { max-width: calc(100% - 125px); margin: 21px 0 10px; font-size: 24px; line-height: 1.14; letter-spacing: -.045em; }
-.store h3 { max-width: calc(100% - 125px); margin: 21px 0 10px; font-size: 24px; line-height: 1.14; letter-spacing: -.045em; }
-.store address { max-width: calc(100% - 18px); margin-top: auto; color: var(--dark); font-size: 14px; font-style: normal; line-height: 1.5; opacity: .8; }
-.store-action { position: absolute; top: 58px; right: 20px; }
-.store-action a { min-height: 44px; display: inline-flex; align-items: center; gap: 7px; padding: 8px 10px 8px 8px; border: 1px solid rgba(8, 122, 61, .3); border-radius: 99px; background: var(--white); color: var(--green); font-size: 12px; font-weight: 800; text-decoration: none; white-space: nowrap; box-shadow: 0 3px 8px rgba(23, 57, 42, .07); }
-.store-action a:hover { border-color: var(--green); background: var(--yellow); color: var(--dark); }
+.store h3 { margin: 15px 0 8px; font-size: 24px; line-height: 1.14; letter-spacing: -.045em; }
+.store address { margin-bottom: 18px; color: var(--dark); font-size: 14px; font-style: normal; line-height: 1.5; opacity: .8; }
+.store-action { min-height: 40px; display: inline-flex; align-items: center; gap: 7px; margin-top: auto; padding: 6px 13px 6px 8px; border: 1px solid rgba(8, 122, 61, .3); border-radius: 99px; background: var(--white); color: var(--green); font-size: 12px; font-weight: 800; white-space: nowrap; box-shadow: 0 3px 8px rgba(23, 57, 42, .07); }
+.store:hover .store-action, .store:focus-visible .store-action { border-color: var(--green); background: var(--yellow); color: var(--dark); }
 .store-action img { width: 25px; height: 25px; flex: none; }
 .pending { display: block; max-width: 110px; color: var(--dark); font-size: 12px; line-height: 1.4; opacity: .75; }
 
@@ -224,7 +225,7 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
   .city-links { margin-top: 23px; }
   .city { margin-top: 43px; }
   .store-grid { grid-template-columns: 1fr; gap: 12px; }
-  .store { min-height: 178px; }
+  .store { min-height: 0; }
   .reviews { padding-block: 60px 66px; }
   .review-grid { grid-template-columns: 1fr; gap: 12px; }
   .review { min-height: 0; padding: 23px; }
@@ -258,10 +259,8 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 
 @media (max-width: 360px) {
   .container { width: min(100% - 24px, 1180px); }
-  .store { padding: 19px; }
-  .store-action { right: 16px; }
-  .store h4 { font-size: 22px; }
-  .store-action a { padding-right: 8px; font-size: 11px; }
+  .store-content { padding: 19px; }
+  .store h3 { font-size: 22px; }
   .brand { width: 106px; }
   .header-inner { gap: 5px; }
   .portal-button { min-height: 34px; padding: 6px; font-size: 10.5px; }
