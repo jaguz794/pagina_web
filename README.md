@@ -8,9 +8,18 @@ Versión informativa de la web de Supermercados Popular. Incluye las 13 sedes de
 - `nosotros.html`: historia de Pitalito a Neiva e Ibagué y enfoque en carnes y criaderos propios.
 - `sedes.html`: fotos, direcciones y WhatsApp de las 13 tiendas. Toda la tarjeta de cada sede abre su conversación.
 - `ofertas.html`: muestra automáticamente las promociones publicadas y vigentes desde `data/ofertas.json`.
-- `contactenos.html`: contactos de WhatsApp organizados por ciudad.
+- `contactenos.html`: formulario de contacto y WhatsApp de las sedes por ciudad.
+- `gracias.html`: confirmación después de enviar el formulario.
 
 El botón **Portal interno** abre `http://192.168.10.7/`. Esta dirección privada solo funciona desde la red interna o una VPN con acceso a ella.
+
+El pie de página enlaza a las cuentas oficiales de Instagram y Facebook. La interfaz usa verde, amarillo cálido y fondos crema inspirados en el logotipo.
+
+## Formulario de contacto en Netlify
+
+El formulario de `contactenos.html` usa Netlify Forms (`contacto-sedes`) y permite elegir una de las 13 sedes. Los campos de nombre, correo, teléfono, sede y mensaje son obligatorios. Las respuestas se almacenan en **Netlify → Forms**. La protección antispam incluye un campo trampa invisible.
+
+Para recibir cada envío en `coordinadora.servicioalcliente@supermercadopopular.com`, la notificación por correo debe estar activa en **Netlify → Forms → Form submission notifications** para `contacto-sedes`. El correo del visitante se envía como campo `email` para facilitar la respuesta. Netlify procesa los envíos; en GitHub Pages, `contacto.js` dirige el formulario a Netlify. El servidor local no procesa los envíos.
 
 ## WhatsApp
 

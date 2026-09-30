@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#087a3d" />
-    <meta name="description" content="Comunícate por WhatsApp con cada una de las 13 sedes de Supermercados Popular en Neiva e Ibagué." />
+    <meta name="theme-color" content="#2a682c" />
+    <meta name="description" content="Escríbenos por el formulario de contacto o comunícate por WhatsApp con una de las 13 sedes de Supermercados Popular." />
     <title>Contáctenos | Supermercados Popular</title>
     <link rel="icon" href="assets/favicon-popular.png" type="image/png" />
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260930-warm" />
     <script src="whatsapp.js" defer></script>
+    <script src="contacto.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -29,18 +30,47 @@
     <main id="contenido">
 <section class="page-hero">
   <div class="container"><p class="eyebrow">Hablemos</p><h1>Contáctenos</h1>
-    <p>Elige una sede y escríbele directamente por WhatsApp.</p>
+    <p>Cuéntanos cómo podemos ayudarte. También puedes escribir directamente a tu sede por WhatsApp.</p>
+  </div>
+</section>
+<section class="contact-form-section" aria-labelledby="form-title">
+  <div class="container contact-form-layout">
+    <div class="contact-form-copy">
+      <p class="eyebrow">Escríbenos</p>
+      <h2 id="form-title">Estamos para escucharte.</h2>
+      <p>Completa tus datos, selecciona la sede y déjanos tu mensaje. Nuestro equipo de servicio al cliente lo recibirá para responderte.</p>
+      <p class="form-privacy">Usaremos los datos que nos envíes para atender tu solicitud.</p>
+    </div>
+    <form class="contact-form" name="contacto-sedes" method="POST" action="/gracias.html" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contacto-sedes" />
+      <p class="bot-field"><label>No llenes este campo: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+      <div class="contact-form-grid">
+        <div class="form-field"><label for="contact-name">Nombre completo <span aria-hidden="true">*</span></label><input id="contact-name" name="nombre" type="text" autocomplete="name" maxlength="100" required /></div>
+        <div class="form-field"><label for="contact-email">Correo electrónico <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required /></div>
+        <div class="form-field"><label for="contact-phone">Teléfono <span aria-hidden="true">*</span></label><input id="contact-phone" name="telefono" type="tel" autocomplete="tel" inputmode="tel" minlength="7" maxlength="20" required /></div>
+        <div class="form-field"><label for="contact-store">Sede <span aria-hidden="true">*</span></label><select id="contact-store" name="sede" required><option value="" selected disabled>Selecciona una sede</option><optgroup label="Neiva"><option value="Jardín - Neiva">Jardín · Neiva</option><option value="Rioja - Neiva">Rioja · Neiva</option><option value="Canaima - Neiva">Canaima · Neiva</option><option value="Chapinero - Neiva">Chapinero · Neiva</option><option value="Centro - Neiva">Centro · Neiva</option><option value="CR 5 - Neiva">CR 5 · Neiva</option><option value="Granjas - Neiva">Granjas · Neiva</option><option value="Caña Brava - Neiva">Caña Brava · Neiva</option><option value="Único - Neiva">Único · Neiva</option></optgroup><optgroup label="Ibagué"><option value="Jardín - Ibagué">Jardín · Ibagué</option><option value="Salado - Ibagué">Salado · Ibagué</option><option value="Centro - Ibagué">Centro · Ibagué</option><option value="Tropical - Ibagué">Tropical · Ibagué</option></optgroup></select></div>
+        <div class="form-field form-field-wide"><label for="contact-message">Mensaje <span aria-hidden="true">*</span></label><textarea id="contact-message" name="mensaje" rows="6" maxlength="2000" required></textarea></div>
+      </div>
+      <button class="form-submit" type="submit">Enviar mensaje <span aria-hidden="true">↗</span></button>
+      <p class="form-required">* Campos obligatorios</p>
+    </form>
   </div>
 </section>
 <div class="container contact-directory">
-  <p>Si necesitas la dirección de una tienda, consulta la <a href="sedes.html">lista de sedes</a>.</p>
+  <p>¿Prefieres hablar con una tienda? Elige su WhatsApp o consulta la <a href="sedes.html">lista de direcciones</a>.</p>
 <section class="contact-city" aria-labelledby="contact-neiva"><div class="city-heading"><h2 id="contact-neiva">Neiva</h2><span>9 sedes</span></div><div class="contact-list"><div class="contact-row" data-sede="jardin-neiva" data-nombre="Jardín" data-ciudad="Neiva"><strong>Jardín</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="rioja-neiva" data-nombre="Rioja" data-ciudad="Neiva"><strong>Rioja</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="canaima-neiva" data-nombre="Canaima" data-ciudad="Neiva"><strong>Canaima</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="chapinero-neiva" data-nombre="Chapinero" data-ciudad="Neiva"><strong>Chapinero</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="centro-neiva" data-nombre="Centro" data-ciudad="Neiva"><strong>Centro</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="cr5-neiva" data-nombre="CR 5" data-ciudad="Neiva"><strong>CR 5</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="granjas-neiva" data-nombre="Granjas" data-ciudad="Neiva"><strong>Granjas</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="cana-brava-neiva" data-nombre="Caña Brava" data-ciudad="Neiva"><strong>Caña Brava</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="unico-neiva" data-nombre="Único" data-ciudad="Neiva"><strong>Único</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div></div></section>
 <section class="contact-city" aria-labelledby="contact-ibague"><div class="city-heading"><h2 id="contact-ibague">Ibagué</h2><span>4 sedes</span></div><div class="contact-list"><div class="contact-row" data-sede="jardin-ibague" data-nombre="Jardín" data-ciudad="Ibagué"><strong>Jardín</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="salado-ibague" data-nombre="Salado" data-ciudad="Ibagué"><strong>Salado</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="centro-ibague" data-nombre="Centro" data-ciudad="Ibagué"><strong>Centro</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div><div class="contact-row" data-sede="tropical-ibague" data-nombre="Tropical" data-ciudad="Ibagué"><strong>Tropical</strong><a class="wa-link" hidden><img src="assets/whatsapp-glyph.svg" alt="" width="25" height="25" /> WhatsApp</a><span class="pending">WhatsApp por confirmar</span></div></div></section></div>
     </main>
     <footer class="site-footer">
       <div class="container footer-inner">
         <span>Supermercados Popular</span>
-        <span>Neiva · Ibagué</span>
+        <div class="footer-location-social">
+          <span>Neiva · Ibagué</span>
+          <nav class="social-links" aria-label="Redes sociales">
+            <a href="https://www.instagram.com/supermercados_popular?stkn=N2puMWI3Nmp6dzU0" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Supermercados Popular (abre una nueva pestaña)"><img src="assets/instagram.svg" alt="" width="22" height="22" /></a>
+            <a href="https://www.facebook.com/share/18f19Gf5C2/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Supermercados Popular (abre una nueva pestaña)"><img src="assets/facebook.svg" alt="" width="22" height="22" /></a>
+          </nav>
+        </div>
         <a href="index.html">Inicio ↑</a>
       </div>
     </footer>
