@@ -13,7 +13,7 @@ export default async function handler(req) {
       if (!/^[0-9a-f-]{36}$/.test(id || '')) return failure('Imagen inválida.', 400);
       const bytes = await store().get(`image/${id}`, { type: 'arrayBuffer' });
       if (!bytes) return failure('Imagen no encontrada.', 404);
-      return new Response(bytes, { headers: { 'Content-Type': 'image/webp', 'Cache-Control': 'public, max-age=3600' } });
+      return new Response(bytes, { headers: { 'Content-Type': 'image/webp', 'Cache-Control': 'public, max-age=300' } });
     }
     if (req.method !== 'POST') return failure('Método no permitido.', 405);
     verifyRequestOrigin(req);
@@ -24,7 +24,7 @@ export default async function handler(req) {
     const marker = (from, to) => String.fromCharCode(...bytes.slice(from, to));
     if (marker(0, 4) !== 'RIFF' || marker(8, 12) !== 'WEBP') return failure('La imagen no es WebP válida.', 415);
     const id = crypto.randomUUID();
-    await store().set(`image/${id}`, bytes);
+    await store().set(`image/${id}`, bytes, { metadata: { createdAt: new Date().toISOString() } });
     return Response.json({ url: `/.netlify/functions/offer-image?id=${id}` }, { status: 201, headers: { 'Cache-Control': 'no-store' } });
   } catch (error) {
     console.error('offer-image:', error);

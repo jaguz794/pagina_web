@@ -6,7 +6,7 @@ const image = '/.netlify/functions/offer-image?id=123e4567-e89b-42d3-a456-426614
 const basic = {
   tipo: 'volante', titulo: 'Ofertas de la semana', descripcion: 'Promoción vigente',
   sede: 'Jardín - Ibagué', inicio: '2026-10-01', fin: '2026-10-03',
-  imagenes: [image], publicada: true,
+  portada: image, imagenes: [image], publicada: true,
 };
 
 test('only the bootstrap account or assigned editors can write', () => {
@@ -29,6 +29,9 @@ test('validates dates and branch and preserves identity when editing', () => {
 });
 
 test('rejects an external image URL and a product without price', () => {
-  assert.throws(() => normalizeOffer({ ...basic, imagenes: ['https://elsewhere.example/file.webp'] }), /imágenes/);
+  assert.throws(() => normalizeOffer({ ...basic, imagenes: ['https://elsewhere.example/file.webp'] }), /páginas/);
+  assert.throws(() => normalizeOffer({ ...basic, portada: 'https://elsewhere.example/file.webp' }), /portada/);
+  assert.throws(() => normalizeOffer({ ...basic, imagenes: Array(31).fill(image) }), /30/);
+  assert.equal(normalizeOffer({ ...basic, imagenes: Array(30).fill(image) }).imagenes.length, 30);
   assert.throws(() => normalizeOffer({ ...basic, tipo: 'producto', unidad: '500 g' }), /precio/);
 });

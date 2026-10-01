@@ -11,6 +11,14 @@ export function validDate(value) {
   return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
 }
 
+export function todayInBogota(now = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Bogota', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(now);
+  const part = (type) => parts.find((item) => item.type === type).value;
+  return `${part('year')}-${part('month')}-${part('day')}`;
+}
+
+export const imageId = (url) => /^\/\.netlify\/functions\/offer-image\?id=([0-9a-f-]{36})$/.exec(url || '')?.[1] || null;
+
 export function canEdit(user) {
   if (!user) return false;
   const roles = Array.isArray(user.roles) ? user.roles : [];
@@ -27,6 +35,7 @@ export function normalizeOffer(value, previous = {}) {
   const fin = value.fin;
   const sede = value.sede;
   const imagenes = value.imagenes;
+  const portada = value.portada;
   if (titulo.length < 3 || titulo.length > 120) throw new Error('El título debe tener entre 3 y 120 caracteres.');
   if (descripcion.length > 1000) throw new Error('La descripción no puede superar 1000 caracteres.');
   if (!['producto', 'volante', 'portada'].includes(tipo)) throw new Error('Selecciona un formato válido.');
@@ -34,10 +43,12 @@ export function normalizeOffer(value, previous = {}) {
   if (sede !== 'todas' && sede !== 'neiva' && sede !== 'ibague' && !SEDES.includes(sede)) {
     throw new Error('Selecciona una sede válida.');
   }
-  if (!Array.isArray(imagenes) || imagenes.length < 1 || imagenes.length > 12 ||
-      !imagenes.every((url) => typeof url === 'string' && /^\/\.netlify\/functions\/offer-image\?id=[0-9a-f-]{36}$/.test(url))) {
-    throw new Error('Adjunta de 1 a 12 imágenes válidas.');
+  if (!imageId(portada)) throw new Error('Adjunta una portada válida.');
+  if (!Array.isArray(imagenes) || imagenes.length > 30 || !imagenes.every(imageId) ||
+      (tipo === 'volante' && imagenes.length < 1)) {
+    throw new Error(tipo === 'volante' ? 'Adjunta entre 1 y 30 páginas válidas.' : 'Adjunta máximo 30 imágenes válidas.');
   }
+  if (value.publicada === true && fin < todayInBogota()) throw new Error('La fecha final ya pasó. Cambia la vigencia antes de publicar.');
   const precio = Number(value.precio);
   const precioAnterior = value.precio_anterior === '' || value.precio_anterior == null ? null : Number(value.precio_anterior);
   const unidad = String(value.unidad || '').trim();
@@ -50,14 +61,15 @@ export function normalizeOffer(value, previous = {}) {
   }
   return {
     id: previous.id || crypto.randomUUID(),
-    tipo, titulo, descripcion, inicio, fin, sede, imagenes,
-    imagen: imagenes[0],
+    tipo, titulo, descripcion, inicio, fin, sede, portada, imagenes,
+    imagen: portada,
     ciudad: sede === 'todas' || sede === 'neiva' || sede === 'ibague' ? sede : (sede.endsWith('Neiva') ? 'neiva' : 'ibague'),
     precio: tipo === 'producto' ? precio : null,
     precio_anterior: tipo === 'producto' ? precioAnterior : null,
     unidad: tipo === 'producto' ? unidad : '',
     publicada: value.publicada === true,
     archivada: value.archivada === true,
+    expirada: false,
     creado: previous.creado || new Date().toISOString(),
     actualizado: new Date().toISOString(),
   };

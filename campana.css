@@ -1,0 +1,17 @@
+body { background:#fffaf0; color:#223227; }
+.campaign-header { display:flex; justify-content:space-between; align-items:center; gap:20px; padding:14px max(20px,5vw); background:#fff; border-bottom:1px solid #d9dfd4; }
+.campaign-header img { display:block; width:140px; height:auto; }
+.campaign-header a:last-child { color:#2a682c; font-weight:700; }
+.campaign-shell { max-width:1050px; margin:auto; padding:40px 20px 80px; }
+.campaign-shell h1 { margin:0 0 10px; font-size:clamp(2rem,5vw,3.5rem); }
+#campaign-meta { font-weight:700; }
+.campaign-cover { display:block; max-width:350px; max-height:350px; width:100%; height:auto; object-fit:contain; margin:28px auto; border-radius:12px; }
+.campaign-viewer { background:#fff; padding:clamp(12px,3vw,26px); border:1px solid #d9dfd4; border-radius:16px; }
+.campaign-controls { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:12px; margin-bottom:18px; }
+.campaign-controls button,.campaign-controls select { border:1px solid #b8c8b7; border-radius:8px; padding:9px 13px; background:#f5fbf3; color:#214d25; font:inherit; font-weight:700; }
+.campaign-controls button { cursor:pointer; }
+.campaign-controls button:disabled { opacity:.4; cursor:default; }
+.campaign-viewer a { display:block; text-align:center; background:#f4f4f0; }
+.campaign-viewer img { display:block; margin:auto; max-width:100%; width:100%; height:auto; object-fit:contain; }
+.campaign-viewer p { color:#546459; font-size:.9rem; }
+[hidden] { display:none!important; }

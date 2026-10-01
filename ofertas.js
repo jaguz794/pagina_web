@@ -49,12 +49,13 @@
     const flyer = offer.tipo === "volante" || offer.tipo === "portada";
     const card = element("article", `offer-card${flyer ? " offer-flyer" : ""}${offer.tipo === "portada" ? " offer-cover" : ""}`);
     const imagePath = imagePathFor(offer);
+    const campaignLink = offer.tipo === 'volante' && /^[0-9a-f-]{36}$/.test(offer.id || '') && Array.isArray(offer.imagenes) && offer.imagenes.length
+      ? `campana.html?id=${encodeURIComponent(offer.id)}` : imagePath;
     if (imagePath) {
       const picture = element(flyer ? "a" : "div", "offer-image");
       if (flyer) {
-        picture.href = imagePath;
-        picture.target = "_blank";
-        picture.rel = "noopener noreferrer";
+        picture.href = campaignLink;
+        if (campaignLink === imagePath) { picture.target = "_blank"; picture.rel = "noopener noreferrer"; }
         picture.setAttribute("aria-label", `Abrir volante completo: ${offer.titulo}`);
       }
       const image = element("img");
@@ -82,7 +83,7 @@
       }
     }
     body.append(element("p", "offer-validity", `Válida del ${formatDate(offer.inicio)} al ${formatDate(offer.fin)}${flyer ? ", o hasta agotar existencias" : ""}.`));
-    if (Array.isArray(offer.imagenes) && offer.imagenes.length > 1) {
+    if (!campaignLink.startsWith('campana.html') && Array.isArray(offer.imagenes) && offer.imagenes.length > 1) {
       const gallery = element("div", "offer-gallery");
       offer.imagenes.slice(1).forEach((url, index) => {
         const checked = imagePathFor({ imagen: url });
@@ -102,8 +103,8 @@
       body.append(gallery);
     }
     const link = element("a", "secondary-link", flyer ? "Abrir volante completo ↗" : "Encuentra tu sede ↗");
-    link.href = flyer ? imagePath : "sedes.html";
-    if (flyer) {
+    link.href = flyer ? campaignLink : "sedes.html";
+    if (flyer && campaignLink === imagePath) {
       link.target = "_blank";
       link.rel = "noopener noreferrer";
     }

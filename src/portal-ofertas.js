@@ -8,7 +8,8 @@ const authPanel = $('#auth-panel');
 const passwordPanel = $('#password-panel');
 const editorPanel = $('#editor-panel');
 const form = $('#offer-form');
-let currentImages = [];
+let coverItem = null;
+let detailItems = [];
 let editingId = null;
 let offers = [];
 let inviteToken = null;
@@ -50,20 +51,20 @@ async function loadOffers() {
     const item = document.createElement('article');
     item.className = 'portal-offer';
     const img = document.createElement('img');
-    img.src = offer.imagen;
+    if (offer.portada || offer.imagen) img.src = offer.portada || offer.imagen;
     img.alt = '';
     img.loading = 'lazy';
     const body = document.createElement('div');
     const title = document.createElement('strong');
     title.textContent = offer.titulo;
     const meta = document.createElement('small');
-    const state = offer.archivada ? 'Archivada' : offer.publicada ? 'Publicada' : 'Borrador';
+    const state = offer.expirada ? 'Finalizada · imágenes eliminadas' : offer.archivada ? 'Archivada' : offer.publicada ? 'Publicada' : 'Borrador';
     meta.textContent = `${state} · ${offer.sede} · ${offer.inicio} a ${offer.fin}`;
     const actions = document.createElement('div');
     actions.className = 'portal-offer-actions';
     const edit = document.createElement('button');
     edit.type = 'button';
-    edit.textContent = offer.archivada ? 'Restaurar y editar' : 'Editar';
+    edit.textContent = offer.expirada ? 'Reutilizar datos' : offer.archivada ? 'Restaurar y editar' : 'Editar';
     edit.addEventListener('click', () => beginEdit(offer));
     const archive = document.createElement('button');
     archive.type = 'button';
@@ -84,28 +85,42 @@ async function loadOffers() {
   }
 }
 
+function release(item) { if (item?.preview) URL.revokeObjectURL(item.preview); }
+function itemImage(item) { return item?.preview || item?.url || ''; }
 function renderImages() {
-  const preview = $('#image-preview');
-  preview.replaceChildren();
-  currentImages.forEach((url, index) => {
-    const box = document.createElement('div');
-    box.className = 'portal-image';
-    const img = document.createElement('img');
-    img.src = url;
-    img.alt = `Imagen ${index + 1}`;
-    const remove = document.createElement('button');
-    remove.type = 'button';
-    remove.textContent = 'Quitar';
-    remove.addEventListener('click', () => { currentImages.splice(index, 1); renderImages(); });
-    box.append(img, remove);
-    preview.append(box);
+  const cover = $('#cover-preview');
+  cover.replaceChildren();
+  if (coverItem) {
+    const row = document.createElement('div'); row.className = 'portal-image';
+    const img = document.createElement('img'); img.src = itemImage(coverItem); img.alt = 'Portada';
+    const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = 'Quitar portada';
+    remove.addEventListener('click', () => { release(coverItem); coverItem = null; renderImages(); });
+    row.append(img, remove); cover.append(row);
+  }
+  const preview = $('#image-preview'); preview.replaceChildren();
+  $('#detail-count').textContent = `${detailItems.length} de 30 páginas`;
+  detailItems.forEach((item, index) => {
+    const box = document.createElement('div'); box.className = 'portal-image';
+    const img = document.createElement('img'); img.src = itemImage(item); img.alt = `Página ${index + 1}`;
+    const label = document.createElement('span'); label.textContent = `Página ${index + 1}${item.file ? ` · ${item.file.name}` : ''}`;
+    const actions = document.createElement('div'); actions.className = 'portal-image-actions';
+    const move = (text, target, disabled) => {
+      const button = document.createElement('button'); button.type = 'button'; button.textContent = text; button.disabled = disabled;
+      button.addEventListener('click', () => { [detailItems[index], detailItems[target]] = [detailItems[target], detailItems[index]]; renderImages(); });
+      actions.append(button);
+    };
+    move('↑', index - 1, index === 0); move('↓', index + 1, index === detailItems.length - 1);
+    const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = 'Quitar';
+    remove.addEventListener('click', () => { release(detailItems[index]); detailItems.splice(index, 1); renderImages(); });
+    actions.append(remove); box.append(img, label, actions); preview.append(box);
   });
 }
 
 function resetForm() {
   form.reset();
   editingId = null;
-  currentImages = [];
+  release(coverItem); detailItems.forEach(release);
+  coverItem = null; detailItems = [];
   $('#form-title').textContent = 'Nueva oferta';
   $('#save-offer').textContent = 'Guardar oferta';
   $('#cancel-edit').hidden = true;
@@ -115,13 +130,15 @@ function resetForm() {
 
 function beginEdit(offer) {
   editingId = offer.id;
-  currentImages = [...offer.imagenes];
+  release(coverItem); detailItems.forEach(release);
+  coverItem = !offer.expirada && (offer.portada || offer.imagen) ? { url: offer.portada || offer.imagen } : null;
+  detailItems = offer.expirada ? [] : (offer.imagenes || []).map((url) => ({ url }));
   for (const field of ['titulo', 'descripcion', 'tipo', 'sede', 'inicio', 'fin', 'precio', 'precio_anterior', 'unidad']) {
     form.elements[field].value = offer[field] ?? '';
   }
-  form.elements.publicada.checked = offer.publicada && !offer.archivada;
+  form.elements.publicada.checked = offer.publicada && !offer.archivada && !offer.expirada;
   $('#price-fields').hidden = offer.tipo !== 'producto';
-  $('#form-title').textContent = offer.archivada ? 'Restaurar oferta' : 'Editar oferta';
+  $('#form-title').textContent = offer.expirada ? 'Reutilizar campaña · sube imágenes nuevas' : offer.archivada ? 'Restaurar oferta' : 'Editar oferta';
   $('#save-offer').textContent = 'Guardar cambios';
   $('#cancel-edit').hidden = false;
   renderImages();
@@ -140,8 +157,8 @@ async function optimizeImage(file) {
   canvas.height = Math.round(bitmap.height * scale);
   canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
   bitmap.close();
-  let blob = await canvasBlob(canvas, .84);
-  if (blob.size > 3 * 1024 * 1024) blob = await canvasBlob(canvas, .68);
+  let blob = await canvasBlob(canvas, .88);
+  if (blob.size > 3 * 1024 * 1024) blob = await canvasBlob(canvas, .76);
   if (blob.size > 3 * 1024 * 1024) throw new Error(`«${file.name}» es demasiado grande incluso después de optimizarla.`);
   return blob;
 }
@@ -149,10 +166,13 @@ async function optimizeImage(file) {
 async function showEditor(user) {
   $('#signed-in-as').textContent = user.email;
   view('editor');
+  message('');
   try { await loadOffers(); }
   catch (error) {
-    view('auth');
-    message('Tu cuenta aún no tiene permiso para editar ofertas. Solicita acceso al administrador.', true);
+    if (/restringido|403/i.test(error.message)) {
+      view('auth');
+      message('Tu cuenta aún no tiene permiso para editar ofertas. Solicita acceso al administrador.', true);
+    } else message('Ingresaste correctamente, pero no se pudo cargar la lista de ofertas. Usa «Actualizar» para intentar de nuevo.', true);
   }
 }
 
@@ -181,18 +201,23 @@ async function initialize() {
   }
 }
 
+const ready = initialize();
+
 $('#login-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
   const button = event.currentTarget.querySelector('button[type=submit]');
   button.disabled = true;
+  await ready;
+  let user;
   try {
-    const user = await login(String(data.get('email')).trim(), String(data.get('password')));
-    message('');
-    await showEditor(user);
-    event.currentTarget.reset();
-  } catch (error) { message('No fue posible ingresar. Revisa el correo y la contraseña.', true); }
-  finally { button.disabled = false; }
+    user = await login(String(data.get('email')).trim(), String(data.get('password')));
+  } catch (error) {
+    user = await getUser().catch(() => null);
+    if (!user) message('No fue posible ingresar. Revisa el correo y la contraseña.', true);
+  }
+  if (user) { await showEditor(user); event.currentTarget.reset(); }
+  button.disabled = false;
 });
 
 $('#recovery-link').addEventListener('click', async () => {
@@ -229,6 +254,21 @@ $('#logout-button').addEventListener('click', async () => {
 });
 
 form.elements.tipo.addEventListener('change', () => { $('#price-fields').hidden = form.elements.tipo.value !== 'producto'; });
+$('#cover-image').addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  release(coverItem);
+  coverItem = { file, preview: URL.createObjectURL(file) };
+  event.target.value = '';
+  renderImages();
+});
+$('#detail-images').addEventListener('change', (event) => {
+  const files = [...event.target.files];
+  event.target.value = '';
+  if (detailItems.length + files.length > 30) { message('Puedes adjuntar hasta 30 páginas por campaña.', true); return; }
+  detailItems.push(...files.map((file) => ({ file, preview: URL.createObjectURL(file) })));
+  message(''); renderImages();
+});
 $('#cancel-edit').addEventListener('click', resetForm);
 $('#refresh-offers').addEventListener('click', () => loadOffers().catch((error) => message(error.message, true)));
 
@@ -237,25 +277,29 @@ form.addEventListener('submit', async (event) => {
   const button = $('#save-offer');
   button.disabled = true;
   try {
-    const files = [...$('#offer-images').files];
-    if (currentImages.length + files.length < 1 || currentImages.length + files.length > 12) {
-      throw new Error('Adjunta entre 1 y 12 imágenes.');
-    }
-    const uploaded = [...currentImages];
-    for (const file of files) {
-      button.textContent = `Subiendo ${uploaded.length - currentImages.length + 1} de ${files.length}…`;
-      const blob = await optimizeImage(file);
-      const result = await api('/.netlify/functions/offer-image', { method: 'POST', headers: { 'Content-Type': 'image/webp' }, body: blob });
-      uploaded.push(result.url);
-    }
     const fields = new FormData(form);
+    if (!coverItem) throw new Error('Adjunta una portada.');
+    if (fields.get('tipo') === 'volante' && !detailItems.length) throw new Error('Adjunta al menos una página para la campaña.');
+    if (detailItems.length > 30) throw new Error('Puedes adjuntar hasta 30 páginas.');
+    const upload = async (item, label) => {
+      if (item.url) return item.url;
+      button.textContent = `Subiendo ${label}…`;
+      const blob = await optimizeImage(item.file);
+      const result = await api('/.netlify/functions/offer-image', { method: 'POST', headers: { 'Content-Type': 'image/webp' }, body: blob });
+      item.url = result.url;
+      return item.url;
+    };
+    const portada = await upload(coverItem, 'portada');
+    const imagenes = [];
+    for (const [index, item] of detailItems.entries()) imagenes.push(await upload(item, `página ${index + 1} de ${detailItems.length}`));
+    button.textContent = 'Guardando campaña…';
     const payload = {
       id: editingId,
       titulo: fields.get('titulo'), descripcion: fields.get('descripcion'),
       tipo: fields.get('tipo'), sede: fields.get('sede'),
       inicio: fields.get('inicio'), fin: fields.get('fin'),
       precio: fields.get('precio'), precio_anterior: fields.get('precio_anterior'), unidad: fields.get('unidad'),
-      publicada: fields.has('publicada'), archivada: false, imagenes: uploaded,
+      publicada: fields.has('publicada'), archivada: false, portada, imagenes,
     };
     await api('/.netlify/functions/offers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     resetForm();
@@ -264,5 +308,3 @@ form.addEventListener('submit', async (event) => {
   } catch (error) { message(error.message, true); }
   finally { button.disabled = false; button.textContent = editingId ? 'Guardar cambios' : 'Guardar oferta'; }
 });
-
-initialize();

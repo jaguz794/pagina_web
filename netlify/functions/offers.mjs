@@ -1,6 +1,6 @@
 import { getStore } from '@netlify/blobs';
 import { getUser, verifyRequestOrigin } from '@netlify/identity';
-import { canEdit, normalizeOffer } from './lib/offer-data.mjs';
+import { canEdit, normalizeOffer, todayInBogota } from './lib/offer-data.mjs';
 
 const headers = { 'Cache-Control': 'no-store', 'Content-Type': 'application/json; charset=utf-8' };
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers });
@@ -18,7 +18,7 @@ export default async function handler(req) {
       for await (const page of store().list({ prefix: 'offer/', paginate: true })) {
         const found = await Promise.all(page.blobs.map((blob) => store().get(blob.key, { type: 'json' })));
         for (const offer of found) {
-          if (offer && (editor && url.searchParams.has('admin') || offer.publicada && !offer.archivada)) offers.push(offer);
+          if (offer && (editor && url.searchParams.has('admin') || offer.publicada && !offer.archivada && offer.fin >= todayInBogota())) offers.push(offer);
         }
       }
       offers.sort((a, b) => (b.actualizado || '').localeCompare(a.actualizado || ''));

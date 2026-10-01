@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#2a682c" />
+  <title>Campaña de ofertas | Supermercados Popular</title>
+  <link rel="icon" href="assets/favicon-popular.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="campana.css" />
+  <script src="campana.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Ir al contenido</a>
+  <header class="campaign-header"><a href="/" aria-label="Inicio de Supermercados Popular"><img src="assets/logo-popular.webp" alt="Supermercados Popular" width="150" /></a><a href="ofertas.html">← Todas las ofertas</a></header>
+  <main id="contenido" class="campaign-shell">
+    <p class="eyebrow">Supermercados Popular</p>
+    <h1 id="campaign-title">Cargando campaña…</h1>
+    <p id="campaign-message" role="status"></p>
+    <div id="campaign-content" hidden>
+      <p id="campaign-meta"></p>
+      <p id="campaign-description"></p>
+      <img id="campaign-cover" class="campaign-cover" alt="Portada de la campaña" />
+      <section class="campaign-viewer" aria-label="Páginas de la campaña">
+        <div class="campaign-controls"><button id="campaign-prev" type="button">← Anterior</button><label>Página <select id="campaign-page"></select> de <span id="campaign-total"></span></label><button id="campaign-next" type="button">Siguiente →</button></div>
+        <a id="campaign-full" target="_blank" rel="noopener noreferrer" aria-label="Abrir página en tamaño completo"><img id="campaign-image" alt="" /></a>
+        <p>Selecciona una página para verla completa. Puedes abrirla en otra pestaña y ampliarla para leer los detalles.</p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
