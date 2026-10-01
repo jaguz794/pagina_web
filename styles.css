@@ -93,7 +93,8 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .review figcaption { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; }
 .review figcaption strong { font-weight: 800; }
 .review figcaption span { color: var(--green); }
-.reviews-source { margin: 20px 0 0; font-size: 12px; line-height: 1.5; opacity: .75; }
+.reviews-source { margin: 24px 0 0; font-size: 15px; line-height: 1.5; }
+.reviews-source a { color: var(--green); font-weight: 700; text-underline-offset: 3px; }
 
 .section-heading h1 { margin: 0 0 10px; font-size: clamp(34px, 4vw, 52px); line-height: 1.08; letter-spacing: -.055em; }
 .city-heading h2 { margin: 0; font-size: 29px; letter-spacing: -.05em; }
