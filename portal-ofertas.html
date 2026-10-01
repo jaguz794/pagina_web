@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#2a682c" />
+  <title>Portal de ofertas | Supermercados Popular</title>
+  <link rel="icon" href="assets/favicon-popular.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="portal-ofertas.css" />
+  <script src="portal-ofertas.js" defer></script>
+</head>
+<body>
+  <header class="portal-header">
+    <a href="/" aria-label="Volver a Supermercados Popular"><img src="assets/logo-popular.webp" alt="Supermercados Popular" width="160" /></a>
+    <a href="/ofertas" class="portal-back">Ver ofertas publicadas ↗</a>
+  </header>
+  <main class="portal-shell">
+    <div class="portal-intro"><p class="eyebrow">Administración</p><h1>Portal de ofertas</h1><p>Publica promociones para las sedes participantes. Los cambios aparecerán en la web al guardar.</p></div>
+    <p id="portal-message" class="portal-message" role="status" hidden></p>
+
+    <section id="auth-panel" class="portal-panel" aria-labelledby="login-title">
+      <h2 id="login-title">Ingresar</h2>
+      <p>Accede con el correo autorizado y tu contraseña.</p>
+      <form id="login-form" class="portal-form">
+        <label>Correo electrónico<input name="email" type="email" autocomplete="username" required /></label>
+        <label>Contraseña<input name="password" type="password" autocomplete="current-password" required /></label>
+        <button type="submit" class="portal-primary">Ingresar</button>
+      </form>
+      <button id="recovery-link" type="button" class="portal-text-button">Olvidé mi contraseña</button>
+      <p class="portal-hint">Para crear un usuario nuevo, solicita una invitación al administrador. Cada persona define su propia contraseña.</p>
+    </section>
+
+    <section id="password-panel" class="portal-panel" hidden aria-labelledby="password-title">
+      <h2 id="password-title">Crea tu contraseña</h2>
+      <p id="password-explain">Completa la invitación para activar tu cuenta.</p>
+      <form id="password-form" class="portal-form">
+        <label>Nueva contraseña<input name="password" type="password" autocomplete="new-password" minlength="10" required /></label>
+        <label>Repite la contraseña<input name="confirm" type="password" autocomplete="new-password" minlength="10" required /></label>
+        <button type="submit" class="portal-primary">Guardar contraseña</button>
+      </form>
+    </section>
+
+    <section id="editor-panel" hidden aria-label="Administrar ofertas">
+      <div class="portal-toolbar"><div><strong id="signed-in-as"></strong><span>Sesión activa</span></div><button type="button" id="logout-button" class="portal-text-button">Cerrar sesión</button></div>
+      <div class="portal-layout">
+        <section class="portal-panel" aria-labelledby="form-title">
+          <h2 id="form-title">Nueva oferta</h2>
+          <form id="offer-form" class="portal-form">
+            <label>Título<input name="titulo" maxlength="120" required placeholder="Ej. Ofertas de carnes" /></label>
+            <label>Descripción<textarea name="descripcion" maxlength="1000" rows="3" placeholder="Detalles y condiciones de la promoción"></textarea></label>
+            <div class="portal-two">
+              <label>Formato<select name="tipo" required><option value="volante">Volante o imagen</option><option value="producto">Producto individual</option><option value="portada">Portada de campaña</option></select></label>
+              <label>Sede o ciudad<select name="sede" required><option value="todas">Todas las sedes</option><option value="neiva">Todas las sedes de Neiva</option><option value="ibague">Todas las sedes de Ibagué</option><optgroup label="Neiva"><option>Jardín - Neiva</option><option>Rioja - Neiva</option><option>Canaima - Neiva</option><option>Chapinero - Neiva</option><option>Centro - Neiva</option><option>CR 5 - Neiva</option><option>Granjas - Neiva</option><option>Caña Brava - Neiva</option><option>Único - Neiva</option></optgroup><optgroup label="Ibagué"><option>Jardín - Ibagué</option><option>Salado - Ibagué</option><option>Centro - Ibagué</option><option>Tropical - Ibagué</option></optgroup></select></label>
+            </div>
+            <div class="portal-two"><label>Desde<input name="inicio" type="date" required /></label><label>Hasta<input name="fin" type="date" required /></label></div>
+            <div id="price-fields" class="portal-two" hidden><label>Precio de oferta, COP<input name="precio" type="number" min="0" step="1" /></label><label>Precio anterior, COP<input name="precio_anterior" type="number" min="0" step="1" /></label><label>Presentación<input name="unidad" maxlength="60" placeholder="Ej. 500 g" /></label></div>
+            <label>Imágenes, máximo 12<input id="offer-images" type="file" accept="image/jpeg,image/png,image/webp" multiple /></label>
+            <p class="portal-hint">Se convierten a WebP antes de subirlas. Revisa que los precios pequeños del volante sigan legibles.</p>
+            <div id="image-preview" class="portal-images" aria-live="polite"></div>
+            <label class="portal-check"><input name="publicada" type="checkbox" /> Publicar ahora</label>
+            <div class="portal-actions"><button type="submit" id="save-offer" class="portal-primary">Guardar oferta</button><button type="button" id="cancel-edit" class="portal-secondary" hidden>Cancelar edición</button></div>
+          </form>
+        </section>
+        <section class="portal-panel" aria-labelledby="list-title"><div class="portal-list-heading"><h2 id="list-title">Ofertas guardadas</h2><button id="refresh-offers" type="button" class="portal-text-button">Actualizar</button></div><div id="admin-offers" class="portal-offers"><p>Cargando…</p></div></section>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

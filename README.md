@@ -41,7 +41,17 @@ Abre `index.html` en un navegador o ejecuta `python -m http.server 8000` desde e
 
 La sección de ofertas carga un archivo JSON. Para revisar cambios en las ofertas localmente, usa el servidor `python -m http.server 8000`; abrir `ofertas.html` como archivo `file://` solo muestra el estado sin ofertas.
 
-## Administración visual de ofertas
+## Portal de ofertas en Netlify
+
+La operación diaria se realiza en `https://supermercadopopular.com/portal-ofertas` sin entrar a GitHub. El portal permite crear, editar, publicar, archivar y restaurar promociones con fechas, ciudad o sede, descripción y hasta 12 imágenes. Las imágenes se optimizan a WebP antes de subirlas. Las ofertas publicadas solo aparecen durante su vigencia; las guardadas como borrador no son públicas.
+
+**Acceso:** Netlify Identity está configurado con registro por invitación. La primera cuenta autorizada es `soporte@supermercadopopular.com`. Para agregar más usuarios, entra a Netlify → proyecto `supermercadopopularr` → Identity → Users → Invite users. Cada persona acepta el correo de invitación y crea su propia contraseña en el portal. Los nuevos usuarios deben recibir además el rol `ofertas_editor` en Identity → Users → usuario → Edit settings → Roles; la cuenta de soporte tiene acceso inicial. El sitio público no muestra un enlace al portal.
+
+Las promociones y las imágenes se guardan en Netlify Blobs y persisten entre despliegues. La página pública consulta la función `offers`; el archivo `data/ofertas.json` sigue como historial y respaldo para la antigua publicación estática. No editar este archivo para cargar ofertas nuevas.
+
+Para desarrollar: `npm install` y `npm run build`. Netlify usa `netlify.toml` y publica `dist`. Las funciones requieren el entorno Netlify; para probarlas localmente se puede usar `netlify dev` con el proyecto vinculado. `npm test` comprueba la validación de ofertas y los permisos.
+
+## Administración anterior con Pages CMS
 
 La configuración `.pages.yml` prepara [Pages CMS](https://pagescms.org/) para editar ofertas desde un formulario conectado al repositorio de GitHub. El código y las imágenes quedan en una cuenta de GitHub controlada por la empresa. El panel de edición es un servicio externo; puede instalarse por cuenta propia más adelante si se desea gestionar también esa infraestructura.
 

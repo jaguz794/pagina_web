@@ -39,7 +39,9 @@
   }
 
   function imagePathFor(offer) {
-    const path = typeof offer.imagen === "string" ? offer.imagen.replace(/^\//, "") : "";
+    const value = typeof offer.imagen === "string" ? offer.imagen : "";
+    if (/^\/\.netlify\/functions\/offer-image\?id=[0-9a-f-]{36}$/.test(value)) return value;
+    const path = value.replace(/^\//, "");
     return /^assets\/ofertas\/[A-Za-z0-9À-ÿ _().-]+\.(?:jpe?g|png|webp)$/i.test(path) && !path.includes("..") ? path : "";
   }
 
@@ -67,7 +69,7 @@
     }
 
     const body = element("div", "offer-body");
-    body.append(element("span", "offer-city", cityLabels[offer.ciudad]));
+    body.append(element("span", "offer-city", offer.sede && !["todas", "neiva", "ibague"].includes(offer.sede) ? offer.sede.replace(" - ", " · ") : cityLabels[offer.ciudad]));
     body.append(element("h3", "", offer.titulo));
     if (offer.descripcion) body.append(element("p", "offer-description", offer.descripcion));
     if (!flyer) {
@@ -80,6 +82,25 @@
       }
     }
     body.append(element("p", "offer-validity", `Válida del ${formatDate(offer.inicio)} al ${formatDate(offer.fin)}${flyer ? ", o hasta agotar existencias" : ""}.`));
+    if (Array.isArray(offer.imagenes) && offer.imagenes.length > 1) {
+      const gallery = element("div", "offer-gallery");
+      offer.imagenes.slice(1).forEach((url, index) => {
+        const checked = imagePathFor({ imagen: url });
+        if (!checked) return;
+        const thumb = element("a", "offer-gallery-link");
+        thumb.href = checked;
+        thumb.target = "_blank";
+        thumb.rel = "noopener noreferrer";
+        thumb.setAttribute("aria-label", `Abrir imagen ${index + 2} de ${offer.titulo}`);
+        const image = element("img");
+        image.src = checked;
+        image.alt = `Imagen ${index + 2} de ${offer.titulo}`;
+        image.loading = "lazy";
+        thumb.append(image);
+        gallery.append(thumb);
+      });
+      body.append(gallery);
+    }
     const link = element("a", "secondary-link", flyer ? "Abrir volante completo ↗" : "Encuentra tu sede ↗");
     link.href = flyer ? imagePath : "sedes.html";
     if (flyer) {
@@ -91,12 +112,14 @@
     return card;
   }
 
-  fetch(`data/ofertas.json?v=${Date.now()}`, { cache: "no-store" })
-    .then((response) => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
-    })
-    .then((offers) => {
+  const read = (url) => fetch(url, { cache: "no-store" }).then((response) => {
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.json();
+  });
+  Promise.allSettled([read('/.netlify/functions/offers'), read(`data/ofertas.json?v=${Date.now()}`)])
+    .then((results) => {
+      if (results.every((result) => result.status === "rejected")) throw new Error("No hay fuentes disponibles");
+      const offers = results.flatMap((result) => result.status === "fulfilled" && Array.isArray(result.value) ? result.value : []);
       if (!Array.isArray(offers)) throw new Error("Formato de ofertas inválido");
       const active = offers.filter((offer) =>
         offer && offer.publicada === true &&
