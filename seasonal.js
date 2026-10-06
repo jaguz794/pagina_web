@@ -1,18 +1,21 @@
 // The browser selects a theme in Colombian time; no scheduled deploy is needed.
+const STANDARD = Object.freeze({ id: 'standard', title: '', symbol: '', effect: 'none', color: '#2a682c' });
 export const MONTHS = Object.freeze({
-  1: { id: 'new-year', title: 'Un nuevo año para compartir', symbol: '✦', effect: 'sparkle', color: '#2a6861' },
-  2: { id: 'carnival', title: 'Febrero lleno de alegría', symbol: '✷', effect: 'confetti', color: '#794a8c' },
+  1: STANDARD,
+  2: STANDARD,
   3: { id: 'women', title: 'Celebramos a las mujeres', symbol: '✿', effect: 'petal', color: '#784b75' },
   4: { id: 'children', title: 'Abril para sonreír en familia', symbol: '✦', effect: 'confetti', color: '#2b6676' },
   5: { id: 'mothers', title: 'Con cariño para mamá', symbol: '♥', effect: 'heart', color: '#a33e5c' },
   6: { id: 'fathers', title: 'Junio para celebrar a papá', symbol: '✦', effect: 'sparkle', color: '#305d80' },
-  7: { id: 'independence', title: 'Celebremos lo nuestro', symbol: '🇨🇴', effect: 'confetti', color: '#265875' },
-  8: { id: 'boyaca', title: 'Agosto con orgullo colombiano', symbol: '🇨🇴', effect: 'confetti', color: '#345d73' },
+  7: STANDARD,
+  8: STANDARD,
   9: { id: 'love', title: 'Amor y amistad para compartir', symbol: '♥', effect: 'heart', color: '#893b59' },
   10: { id: 'halloween', title: 'Octubre de dulces y sorpresas', symbol: '🎃', effect: 'bat', color: '#713d35' },
-  11: { id: 'cartagena', title: 'Noviembre para celebrar juntos', symbol: '✷', effect: 'confetti', color: '#6d593a' },
+  11: STANDARD,
   12: { id: 'christmas', title: 'Navidad para compartir en Popular', symbol: '❄', effect: 'snow', color: '#205c59' },
 });
+const NEW_YEAR = Object.freeze({ id: 'new-year', title: 'Año Nuevo y Día de Reyes en Popular', symbol: '✦', effect: 'sparkle', color: '#2a6861' });
+const CARNIVAL = Object.freeze({ id: 'carnival', title: 'Carnaval para celebrar con alegría', symbol: '✷', effect: 'confetti', color: '#794a8c' });
 
 export function colombianDate(date = new Date()) {
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -61,11 +64,11 @@ export function seasonForDate({ year, month, day }) {
   const easter = easterSunday(year);
   const easterDay = utcDay(year, easter.month, easter.day);
   if (today >= easterDay - 7 && today <= easterDay) {
-    return { ...MONTHS[4], title: 'Semana Santa para compartir en familia' };
+    return { id: 'easter', title: 'Semana Santa para compartir en familia', symbol: '✿', effect: 'petal', color: '#627855' };
   }
   const carnivalTuesday = easterDay - 47;
   if (today >= carnivalTuesday - 3 && today <= carnivalTuesday) {
-    return { ...MONTHS[2], title: 'Carnaval para celebrar con alegría' };
+    return CARNIVAL;
   }
   if (month === 4 && Math.abs(day - lastWeekday(year, 4, 6)) <= 2) {
     return { ...MONTHS[4], title: 'Día de la Niñez para sonreír en familia' };
@@ -83,10 +86,7 @@ export function seasonForDate({ year, month, day }) {
   if (month === 12 && day >= 7 && day <= 8) return { ...MONTHS[12], title: 'Encendamos juntos la Noche de Velitas' };
   if (month === 12 && day >= 16 && day <= 24) return { ...MONTHS[12], title: 'Novenas y Navidad para compartir' };
   if (month === 12 && day >= 30) return { ...MONTHS[12], title: 'Un año nuevo para seguir cerca de ti' };
-  if (month === 1 && day <= 6) return { ...MONTHS[1], title: 'Año Nuevo y Día de Reyes en Popular' };
-  if (month === 7 && day >= 18 && day <= 21) return { ...MONTHS[7], title: 'Celebremos la Independencia de Colombia' };
-  if (month === 8 && day >= 6 && day <= 8) return { ...MONTHS[8], title: 'Recordemos la Batalla de Boyacá' };
-  if (month === 11 && day >= 10 && day <= 12) return { ...MONTHS[11], title: 'Celebramos la Independencia de Cartagena' };
+  if (month === 1 && day <= 6) return NEW_YEAR;
   return base;
 }
 
@@ -115,23 +115,9 @@ export function applySeason(date = new Date()) {
   root.dataset.effect = season.effect;
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', season.color);
 
-  const brand = document.querySelector('.site-header .brand, .campaign-header a:first-child');
-  if (brand) {
-    if (season.id === 'christmas') {
-      const hat = document.createElement('img');
-      hat.src = 'assets/santa-hat.svg';
-      hat.alt = '';
-      hat.className = 'seasonal-logo-hat';
-      hat.setAttribute('aria-hidden', 'true');
-      brand.append(hat);
-    } else {
-      const badge = document.createElement('span');
-      badge.className = 'seasonal-logo-badge';
-      badge.textContent = season.symbol;
-      badge.setAttribute('aria-hidden', 'true');
-      brand.append(badge);
-    }
-  }
+  const logo = document.querySelector('.site-header .brand img, .campaign-header a:first-child img');
+  if (logo && season.id !== 'standard') logo.src = `assets/seasonal-logos/${season.id}.svg`;
+  if (season.id === 'standard') return season;
 
   const header = document.querySelector('.site-header, .campaign-header');
   const ribbon = document.createElement('div');
