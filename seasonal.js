@@ -9,7 +9,7 @@ export const MONTHS = Object.freeze({
   7: { id: 'independence', title: 'Celebremos lo nuestro', symbol: '🇨🇴', effect: 'confetti', color: '#265875' },
   8: { id: 'boyaca', title: 'Agosto con orgullo colombiano', symbol: '🇨🇴', effect: 'confetti', color: '#345d73' },
   9: { id: 'love', title: 'Amor y amistad para compartir', symbol: '♥', effect: 'heart', color: '#893b59' },
-  10: { id: 'halloween', title: 'Octubre de dulces y sorpresas', symbol: '🎃', effect: 'sparkle', color: '#713d35' },
+  10: { id: 'halloween', title: 'Octubre de dulces y sorpresas', symbol: '🎃', effect: 'bat', color: '#713d35' },
   11: { id: 'cartagena', title: 'Noviembre para celebrar juntos', symbol: '✷', effect: 'confetti', color: '#6d593a' },
   12: { id: 'christmas', title: 'Navidad para compartir en Popular', symbol: '❄', effect: 'snow', color: '#205c59' },
 });
@@ -94,14 +94,16 @@ function particleLayer(effect) {
   const layer = document.createElement('div');
   layer.className = 'seasonal-particles';
   layer.setAttribute('aria-hidden', 'true');
-  const glyph = { snow: '❄', heart: '♥', petal: '✿', confetti: '✦', sparkle: '✧' }[effect];
-  for (let index = 0; index < 14; index += 1) {
-    const flake = document.createElement('span');
-    flake.textContent = glyph;
-    flake.style.setProperty('--particle-x', `${(index * 37 + 11) % 100}%`);
-    flake.style.setProperty('--particle-delay', `${-((index * 7) % 18)}s`);
-    flake.style.setProperty('--particle-duration', `${11 + (index % 7) * 2}s`);
-    layer.append(flake);
+  const glyph = { snow: '❄', heart: '♥', petal: '✿', confetti: '✦', sparkle: '✧', bat: '' }[effect];
+  for (let index = 0; index < 32; index += 1) {
+    const particle = document.createElement('span');
+    particle.textContent = glyph;
+    particle.style.setProperty('--particle-x', `${2 + (index * 37) % 95}%`);
+    particle.style.setProperty('--particle-delay', `${-((index * 13) % 29)}s`);
+    particle.style.setProperty('--particle-duration', `${12 + (index % 7) * 2}s`);
+    particle.style.setProperty('--particle-drift', `${((index * 47) % 141) - 70}px`);
+    particle.style.setProperty('--particle-size', `${20 + (index % 3) * 7}px`);
+    layer.append(particle);
   }
   return layer;
 }

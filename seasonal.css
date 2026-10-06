@@ -22,12 +22,13 @@ html[data-season="christmas"] .site-header .header-inner { min-height:128px; }
 .seasonal-ribbon a { color:var(--white); font-size:12px; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
 .seasonal-ribbon button { min-height:31px; padding:5px 9px; border:1px solid rgba(255,255,255,.55); border-radius:7px; background:transparent; color:var(--white); font:inherit; font-size:11px; font-weight:700; cursor:pointer; }
 .seasonal-ribbon button:hover,.seasonal-ribbon button:focus-visible { background:var(--yellow); border-color:var(--yellow); color:var(--dark); }
-.seasonal-particles { position:fixed; inset:0; z-index:2; overflow:hidden; pointer-events:none; }
-.seasonal-particles span { position:absolute; top:-5vh; left:var(--particle-x); color:var(--yellow); font-size:17px; opacity:.66; text-shadow:0 1px 3px rgba(0,0,0,.15); animation:seasonal-fall var(--particle-duration) linear var(--particle-delay) infinite; }
-html[data-effect="snow"] .seasonal-particles span { color:#fff; font-size:19px; opacity:.8; text-shadow:0 1px 4px #24434d; }
-html[data-effect="heart"] .seasonal-particles span { color:#cc5374; opacity:.55; }
+.seasonal-particles { position:fixed; inset:0; width:100vw; height:100vh; height:100dvh; z-index:20; overflow:hidden; pointer-events:none; }
+.seasonal-particles span { position:absolute; top:-8vh; left:var(--particle-x); color:var(--yellow); font-size:var(--particle-size); opacity:.82; -webkit-text-stroke:.7px #3b2540; text-shadow:0 1px 3px #3b2540; animation:seasonal-fall var(--particle-duration) linear var(--particle-delay) infinite; }
+html[data-effect="snow"] .seasonal-particles span { color:#fff; opacity:.86; -webkit-text-stroke:1px #275563; text-shadow:0 1px 4px #275563; }
+html[data-effect="heart"] .seasonal-particles span { color:#d9557b; -webkit-text-stroke:.8px #572538; text-shadow:0 1px 3px #572538; }
+html[data-effect="bat"] .seasonal-particles span { display:block; width:var(--particle-size); height:var(--particle-size); background:url("assets/halloween-bat.svg") center / contain no-repeat; opacity:.93; -webkit-text-stroke:0; filter:drop-shadow(0 1px 2px rgba(0,0,0,.55)); }
 .seasonal-burst { position:absolute; right:14%; top:0; z-index:3; color:var(--yellow); font-size:34px; pointer-events:none; animation:seasonal-pop .75s ease-out forwards; }
-@keyframes seasonal-fall { from { transform:translate3d(0,-5vh,0) rotate(0); } to { transform:translate3d(55px,110vh,0) rotate(180deg); } }
+@keyframes seasonal-fall { from { transform:translate3d(0,-8vh,0) rotate(-9deg); } to { transform:translate3d(var(--particle-drift),116vh,0) rotate(12deg); } }
 @keyframes seasonal-pop { from { opacity:1; transform:scale(.3) rotate(-25deg); } to { opacity:0; transform:translateY(-48px) scale(2.6) rotate(25deg); } }
 
 /* The campaign viewer follows the same palette while keeping flyer artwork intact. */
@@ -46,7 +47,7 @@ html[data-effect="heart"] .seasonal-particles span { color:#cc5374; opacity:.55;
   html[data-season="christmas"] .site-header .header-inner { min-height:90px; }
   .seasonal-logo-hat { width:44px!important; left:-4px; top:-12px; }
   .seasonal-logo-badge { width:27px; height:27px; font-size:16px; }
-  .seasonal-particles span:nth-child(n+9) { display:none; }
+  .seasonal-particles span:nth-child(n+19) { display:none; }
 }
 @media (prefers-reduced-motion:reduce) {
   .seasonal-celebrate { display:none!important; }

@@ -15,6 +15,7 @@ test('has a seasonal palette and greeting for every month', () => {
     assert.match(season.color, /^#[0-9a-f]{6}$/);
   }
   assert.equal(seasonForDate({ year: 2026, month: 10, day: 31 }).id, 'halloween');
+  assert.equal(seasonForDate({ year: 2026, month: 10, day: 31 }).effect, 'bat');
   assert.equal(seasonForDate({ year: 2026, month: 9, day: 19 }).id, 'love');
   assert.equal(seasonForDate({ year: 2026, month: 12, day: 24 }).id, 'christmas');
 });
