@@ -1,0 +1,54 @@
+/* Seasonal colors replace the shared palette without altering the brand artwork. */
+html[data-season="new-year"] { --green:#286b62; --dark:#194d4c; --yellow:#f5cf73; --soft:#eaf4ee; --white:#fffdf8; --line:rgba(25,77,76,.18); }
+html[data-season="carnival"] { --green:#78468b; --dark:#50365d; --yellow:#f8d064; --soft:#f5eafa; --white:#fffaf5; --line:rgba(80,54,93,.18); }
+html[data-season="women"] { --green:#784b75; --dark:#503953; --yellow:#f1d48b; --soft:#f8eef4; --white:#fffaf7; --line:rgba(80,57,83,.18); }
+html[data-season="children"] { --green:#286a78; --dark:#214a59; --yellow:#ffd66e; --soft:#e9f5f4; --white:#fffdf7; --line:rgba(33,74,89,.18); }
+html[data-season="mothers"] { --green:#a23e5d; --dark:#63394b; --yellow:#f7ce83; --soft:#fbedf0; --white:#fffaf8; --line:rgba(99,57,75,.18); }
+html[data-season="fathers"] { --green:#315e7d; --dark:#264660; --yellow:#f2cf78; --soft:#ecf2f7; --white:#fffdf8; --line:rgba(38,70,96,.18); }
+html[data-season="independence"],html[data-season="boyaca"] { --green:#245d7a; --dark:#183e5c; --yellow:#f9d447; --soft:#eaf2f9; --white:#fffdf6; --line:rgba(24,62,92,.18); }
+html[data-season="love"] { --green:#943c5a; --dark:#58394c; --yellow:#f8d788; --soft:#fcecf0; --white:#fffaf8; --line:rgba(88,57,76,.18); }
+html[data-season="halloween"] { --green:#98501f; --dark:#352b38; --yellow:#ffd071; --soft:#fff0df; --white:#fffaf4; --line:rgba(53,43,56,.18); }
+html[data-season="cartagena"] { --green:#74602b; --dark:#4b4831; --yellow:#f7d778; --soft:#f7f2e5; --white:#fffdf7; --line:rgba(75,72,49,.18); }
+html[data-season="christmas"] { --green:#236d56; --dark:#174b49; --yellow:#f8d479; --soft:#e9f4ee; --white:#fffdf7; --line:rgba(23,75,73,.18); }
+
+.brand,.campaign-header a:first-child { position:relative; }
+html[data-season="christmas"] .site-header .header-inner { min-height:128px; }
+.seasonal-logo-hat { position:absolute; z-index:2; left:-7px; top:-16px; width:67px!important; height:auto!important; max-width:none; transform:rotate(-18deg); pointer-events:none; }
+.seasonal-logo-badge { position:absolute; right:3px; top:6px; display:grid; place-items:center; width:35px; height:35px; border:2px solid var(--white); border-radius:50%; background:var(--yellow); box-shadow:0 3px 10px rgba(0,0,0,.2); color:var(--dark); font-size:21px; line-height:1; pointer-events:none; }
+.seasonal-ribbon { position:relative; z-index:2; background:var(--green); color:var(--white); }
+.seasonal-ribbon-inner { width:min(100% - 48px,1180px); min-height:47px; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:6px 17px; margin:auto; padding:8px 0; }
+.seasonal-ribbon-icon { color:var(--yellow); font-size:21px; line-height:1; }
+.seasonal-ribbon-title { margin:0 auto 0 0; font-size:13px; font-weight:800; letter-spacing:.01em; }
+.seasonal-ribbon a { color:var(--white); font-size:12px; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
+.seasonal-ribbon button { min-height:31px; padding:5px 9px; border:1px solid rgba(255,255,255,.55); border-radius:7px; background:transparent; color:var(--white); font:inherit; font-size:11px; font-weight:700; cursor:pointer; }
+.seasonal-ribbon button:hover,.seasonal-ribbon button:focus-visible { background:var(--yellow); border-color:var(--yellow); color:var(--dark); }
+.seasonal-particles { position:fixed; inset:0; z-index:2; overflow:hidden; pointer-events:none; }
+.seasonal-particles span { position:absolute; top:-5vh; left:var(--particle-x); color:var(--yellow); font-size:17px; opacity:.66; text-shadow:0 1px 3px rgba(0,0,0,.15); animation:seasonal-fall var(--particle-duration) linear var(--particle-delay) infinite; }
+html[data-effect="snow"] .seasonal-particles span { color:#fff; font-size:19px; opacity:.8; text-shadow:0 1px 4px #24434d; }
+html[data-effect="heart"] .seasonal-particles span { color:#cc5374; opacity:.55; }
+.seasonal-burst { position:absolute; right:14%; top:0; z-index:3; color:var(--yellow); font-size:34px; pointer-events:none; animation:seasonal-pop .75s ease-out forwards; }
+@keyframes seasonal-fall { from { transform:translate3d(0,-5vh,0) rotate(0); } to { transform:translate3d(55px,110vh,0) rotate(180deg); } }
+@keyframes seasonal-pop { from { opacity:1; transform:scale(.3) rotate(-25deg); } to { opacity:0; transform:translateY(-48px) scale(2.6) rotate(25deg); } }
+
+/* The campaign viewer follows the same palette while keeping flyer artwork intact. */
+.campaign-header { background:var(--white); border-color:var(--line); }
+.campaign-header a:first-child .seasonal-logo-hat { width:49px!important; top:-19px; }
+.campaign-header a:first-child .seasonal-logo-badge { right:0; top:-11px; }
+.campaign-header a:last-child { color:var(--green); }
+.campaign-shell,body:has(.campaign-shell) { background:var(--white); }
+.campaign-shell { color:var(--dark); }
+.campaign-viewer { background:var(--white); border-color:var(--line); }
+.campaign-controls button,.campaign-controls select { border-color:var(--line); background:var(--soft); color:var(--dark); }
+
+@media (max-width:680px) {
+  .seasonal-ribbon-inner { width:min(100% - 32px,1180px); justify-content:flex-start; gap:5px 10px; }
+  .seasonal-ribbon-title { flex:1 1 calc(100% - 40px); font-size:12px; }
+  html[data-season="christmas"] .site-header .header-inner { min-height:90px; }
+  .seasonal-logo-hat { width:44px!important; left:-4px; top:-12px; }
+  .seasonal-logo-badge { width:27px; height:27px; font-size:16px; }
+  .seasonal-particles span:nth-child(n+9) { display:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .seasonal-celebrate { display:none!important; }
+  .seasonal-particles,.seasonal-burst { display:none!important; }
+}

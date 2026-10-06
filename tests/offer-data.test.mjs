@@ -1,11 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canEdit, normalizeOffer, validDate } from '../netlify/functions/lib/offer-data.mjs';
+import { canEdit, normalizeOffer, todayInBogota, validDate } from '../netlify/functions/lib/offer-data.mjs';
 
 const image = '/.netlify/functions/offer-image?id=123e4567-e89b-42d3-a456-426614174000';
+const offsetDate = (days) => {
+  const date = new Date(`${todayInBogota()}T12:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+};
 const basic = {
   tipo: 'volante', titulo: 'Ofertas de la semana', descripcion: 'Promoción vigente',
-  sede: 'Jardín - Ibagué', inicio: '2026-10-01', fin: '2026-10-03',
+  sede: 'Jardín - Ibagué', inicio: offsetDate(1), fin: offsetDate(3),
   portada: image, imagenes: [image], publicada: true,
 };
 
@@ -18,7 +23,7 @@ test('only the bootstrap account or assigned editors can write', () => {
 
 test('validates dates and branch and preserves identity when editing', () => {
   assert.equal(validDate('2026-02-29'), false);
-  assert.throws(() => normalizeOffer({ ...basic, fin: '2026-09-30' }), /fechas/);
+  assert.throws(() => normalizeOffer({ ...basic, fin: offsetDate(-1) }), /fechas/);
   assert.throws(() => normalizeOffer({ ...basic, sede: 'Otra sede' }), /sede/);
   const saved = normalizeOffer(basic);
   assert.equal(saved.ciudad, 'ibague');
