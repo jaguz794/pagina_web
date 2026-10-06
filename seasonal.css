@@ -23,8 +23,11 @@ html[data-effect="snow"] .seasonal-particles span { color:#fff; opacity:.86; -we
 html[data-effect="heart"] .seasonal-particles span { color:#d9557b; -webkit-text-stroke:.8px #572538; text-shadow:0 1px 3px #572538; }
 html[data-effect="bat"] .seasonal-particles span { display:block; width:var(--particle-size); height:var(--particle-size); background:url("assets/halloween-bat.svg") center / contain no-repeat; opacity:.93; -webkit-text-stroke:0; filter:drop-shadow(0 1px 2px rgba(0,0,0,.55)); }
 .seasonal-burst { position:absolute; right:14%; top:0; z-index:3; color:var(--yellow); font-size:34px; pointer-events:none; animation:seasonal-pop .75s ease-out forwards; }
+.seasonal-halloween-celebration { position:fixed; inset:0; z-index:30; display:grid; place-items:center; pointer-events:none; background:radial-gradient(circle at center,rgba(255,196,84,.28),transparent 55%); animation:seasonal-pumpkin-pop 3.2s ease-in-out forwards; }
+.seasonal-halloween-celebration img { display:block; width:min(78vmin,600px); height:auto; filter:drop-shadow(0 0 24px rgba(255,155,43,.6)); }
 @keyframes seasonal-fall { from { transform:translate3d(0,-8vh,0) rotate(-9deg); } to { transform:translate3d(var(--particle-drift),116vh,0) rotate(12deg); } }
 @keyframes seasonal-pop { from { opacity:1; transform:scale(.3) rotate(-25deg); } to { opacity:0; transform:translateY(-48px) scale(2.6) rotate(25deg); } }
+@keyframes seasonal-pumpkin-pop { 0% { opacity:0; transform:scale(.45) rotate(-8deg); } 12% { opacity:1; transform:scale(1.04) rotate(3deg); } 75% { opacity:1; transform:scale(1) rotate(0); } 100% { opacity:0; transform:scale(1.12) rotate(5deg); } }
 
 /* The campaign viewer follows the same palette while keeping flyer artwork intact. */
 .campaign-header { background:var(--white); border-color:var(--line); }
@@ -38,8 +41,9 @@ html[data-effect="bat"] .seasonal-particles span { display:block; width:var(--pa
   .seasonal-ribbon-inner { width:min(100% - 32px,1180px); justify-content:flex-start; gap:5px 10px; }
   .seasonal-ribbon-title { flex:1 1 calc(100% - 40px); font-size:12px; }
   .seasonal-particles span:nth-child(n+19) { display:none; }
+  .seasonal-halloween-celebration img { width:min(85vw,420px); }
 }
 @media (prefers-reduced-motion:reduce) {
   .seasonal-celebrate { display:none!important; }
-  .seasonal-particles,.seasonal-burst { display:none!important; }
+  .seasonal-particles,.seasonal-burst,.seasonal-halloween-celebration { display:none!important; }
 }

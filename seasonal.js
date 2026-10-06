@@ -141,6 +141,16 @@ export function applySeason(date = new Date()) {
   toggle.addEventListener('click', () => { enabled = !enabled; sync(); });
   ribbon.querySelector('.seasonal-celebrate').addEventListener('click', () => {
     if (!enabled || motion.matches) return;
+    if (season.id === 'halloween') {
+      document.querySelector('.seasonal-halloween-celebration')?.remove();
+      const celebration = document.createElement('div');
+      celebration.className = 'seasonal-halloween-celebration';
+      celebration.setAttribute('aria-hidden', 'true');
+      celebration.innerHTML = '<img src="assets/halloween-pumpkin.svg" alt="" />';
+      document.body.append(celebration);
+      celebration.addEventListener('animationend', () => celebration.remove(), { once: true });
+      return;
+    }
     const burst = document.createElement('span');
     burst.className = 'seasonal-burst';
     burst.textContent = season.symbol;
