@@ -42,9 +42,12 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .intro .eyebrow { color: var(--yellow); }
 .intro h1 { max-width: 690px; margin: 0 0 20px; font-size: clamp(42px, 5.2vw, 70px); line-height: 1.04; letter-spacing: -.06em; text-wrap: balance; }
 .intro-copy > p:not(.eyebrow) { max-width: 550px; margin: 0 0 30px; color: rgba(255, 255, 255, .89); font-size: 17px; line-height: 1.58; }
+.intro-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
 .primary-link { min-height: 52px; display: inline-flex; align-items: center; justify-content: space-between; gap: 32px; padding: 13px 20px; border-radius: 10px; background: var(--yellow); color: var(--dark); font-size: 14px; font-weight: 800; text-decoration: none; box-shadow: 0 5px 0 rgba(0, 0, 0, .18); }
 .primary-link:hover { transform: translateY(-2px); box-shadow: 0 7px 0 rgba(0, 0, 0, .18); }
 .primary-link span { font-size: 20px; line-height: 1; }
+.career-link { min-height: 52px; display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 18px; border: 1px solid rgba(255,255,255,.72); border-radius: 10px; color: var(--white); background: rgba(255,255,255,.09); font-size: 14px; font-weight: 800; text-decoration: none; }
+.career-link:hover, .career-link:focus-visible { background: var(--white); color: var(--dark); }
 .intro-art { position: relative; z-index: 1; }
 .city-card { width: min(100%, 370px); margin-left: auto; padding: 22px; border-radius: 22px; background: var(--white); color: var(--dark); box-shadow: 14px 14px 0 rgba(0, 0, 0, .14); }
 .city-card-label { display: block; padding: 4px 4px 16px; color: var(--green); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
@@ -216,6 +219,8 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .social-links img { width: 22px; height: 22px; display: block; }
 .footer-inner a { text-decoration: none; }
 .footer-inner a:hover { text-decoration: underline; }
+.footer-career-link { min-height: 39px; display: inline-flex; align-items: center; padding: 7px 12px; border: 1px solid rgba(255,255,255,.5); border-radius: 8px; font-weight: 800; }
+.footer-career-link:hover, .footer-career-link:focus-visible { border-color: var(--yellow); background: var(--yellow); color: var(--dark); text-decoration: none!important; }
 .thank-you { min-height: 56vh; display: grid; place-items: center; padding-block: 80px; text-align: center; }
 .thank-you h1 { margin: 0 0 14px; font-size: clamp(38px, 5vw, 60px); line-height: 1.08; letter-spacing: -.055em; }
 .thank-you p:not(.eyebrow) { max-width: 540px; margin: 0 auto 27px; line-height: 1.6; }
