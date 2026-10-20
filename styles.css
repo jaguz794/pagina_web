@@ -21,7 +21,7 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .skip-link:focus { top: 12px; }
 
 .site-header { position: relative; z-index: 3; background: var(--white); border-bottom: 1px solid var(--line); }
-.header-inner { min-height: 94px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.header-inner { width: min(100% - 48px, 1600px); min-height: 94px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: block; width: 205px; flex: none; line-height: 0; }
 .brand img { width: 100%; height: auto; display: block; }
 .site-header nav { display: flex; align-items: center; gap: 8px; }
@@ -29,7 +29,8 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 .site-header nav a:hover { background: var(--soft); color: var(--green); }
 .desktop-nav { margin-left: auto; }
 .site-header nav a[aria-current="page"] { color: var(--green); background: var(--soft); }
-.portal-button { min-height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; flex: none; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); color: var(--dark); font-size: 11px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.portal-links { display: flex; align-items: center; gap: 6px; flex: none; }
+.portal-button { min-height: 30px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; flex: none; padding: 5px 8px; border: 1px solid var(--line); border-radius: 7px; background: var(--white); color: var(--dark); font-size: 10px; font-weight: 700; text-decoration: none; white-space: nowrap; }
 .portal-button:hover { border-color: var(--green); background: var(--soft); color: var(--green); }
 .mobile-menu { display: none; position: relative; }
 
@@ -233,7 +234,7 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 
 @media (max-width: 920px) {
   .desktop-nav { display: none !important; }
-  .portal-button { margin-left: auto; }
+  .portal-links { margin-left: auto; }
   .mobile-menu { display: block; flex: none; }
   .mobile-menu summary { min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 9px; font-size: 13px; font-weight: 800; list-style: none; cursor: pointer; }
   .mobile-menu summary::-webkit-details-marker { display: none; }
@@ -247,11 +248,12 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
 
 @media (max-width: 680px) {
   .container { width: min(100% - 32px, 1180px); }
-  .header-inner { min-height: 77px; gap: 8px; }
+  .header-inner { width: min(100% - 32px, 1600px); min-height: 77px; gap: 8px; }
   .brand { width: 120px; }
   .site-header nav { gap: 0; }
   .site-header nav a { padding-inline: 10px; font-size: 13px; }
-  .portal-button { padding-inline: 8px; font-size: 10.5px; }
+  .portal-links { flex-direction: column; align-items: stretch; gap: 3px; }
+  .portal-button { min-height: 25px; padding: 3px 6px; font-size: 9px; }
   .portal-button span { display: none; }
   .mobile-menu summary { gap: 5px; padding-inline: 9px; font-size: 12px; }
   .intro-inner { display: block; min-height: 0; padding-block: 56px 62px; }
@@ -304,7 +306,8 @@ a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
   .store h3 { font-size: 22px; }
   .brand { width: 106px; }
   .header-inner { gap: 5px; }
-  .portal-button { min-height: 34px; padding: 6px; font-size: 10.5px; }
+  .header-inner { width: min(100% - 24px, 1600px); }
+  .portal-button { min-height: 24px; padding: 3px 5px; font-size: 8.5px; }
   .mobile-menu summary { min-height: 40px; padding: 8px; font-size: 11px; }
   .empty-card { display: block; }
   .empty-icon { margin-bottom: 18px; }
