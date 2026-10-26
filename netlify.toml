@@ -4,6 +4,11 @@
   functions = "netlify/functions"
 
 [[redirects]]
+  from = "/gracias.html"
+  to = "/contactenos.html"
+  status = 301
+
+[[redirects]]
   from = "/portal-ofertas"
   to = "/portal-ofertas.html"
   status = 200
